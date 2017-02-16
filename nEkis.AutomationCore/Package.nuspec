@@ -1,20 +1,25 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Package</id>
-    <version>1.0.0</version>
-    <authors>dnekovar</authors>
-    <owners>dnekovar</owners>
+    <id>nEkis.Automation.Core</id>
+    <version>0.1.002</version>
+    <authors>nekiscz</authors>
+    <owners>David Nekovář</owners>
     <licenseUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/nekiscz/Automation.Core</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/nekis.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package description</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Contains core elements of automation test</description>
+    <releaseNotes>Beta version for testing</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>Automation Selenium NUnit nEkis</tags>
-    <dependencies>
-      <dependency id="SampleDependency" version="1.0" />
-    </dependencies>
+    <tags>Automation Selenium NUnit nEkis Core</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.configuration" />
+    </frameworkAssemblies>
   </metadata>
+  <files>
+    <file src="content\PageObject\_BasePage.cs" target="content\PageObject\_BasePage.cs" />
+    <file src="content\Test\_BaseTest.cs" target="content\Test\_BaseTest.cs" />
+    <file src="App.config.transform" target="content\App.config.transform" />
+  </files>
 </package>

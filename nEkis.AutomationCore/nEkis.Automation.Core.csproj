@@ -68,7 +68,8 @@
     <Compile Include="SeleniumExtentions\SetMethods.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config.transform" />
+    <None Include="Package.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
