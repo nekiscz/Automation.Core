@@ -2,11 +2,11 @@
 <configuration>
   <!-- Documentation is available at: https://github.com/nekiscz/Automation.Core/wiki -->
   <appSettings>
-    <add key="loggingpolicy" value="all" />
     <add key="logname" value="Log"/>
     <!-- Path to log file, {0} represents current date in yyyyMMdd-HHmmss format -->
     <add key="logdirectory" value="testlog.{0}.txt"/>
-    <add key="screenshotpolicy" value="all" />
-    <add key="screenshotpath" value="Screenshots\" />
+    <add key="screenshotdirectory" value="Screenshots" />
+    <!-- Name of taken screenshot, {0} represents name of test and {1} represents current date in yyyyMMdd-HHmmss format, has to contain suffix -->
+    <add key="screenshotname" value="{0}.{1}.png" />
   </appSettings>
 </configuration>

@@ -1,4 +1,5 @@
 ﻿using nEkis.Automation.Core;
+using nEkis.Automation.Core.Utilities;
 using NUnit.Framework;
 
 namespace $rootnamespace$.Tests
@@ -20,7 +21,8 @@ namespace $rootnamespace$.Tests
         [TearDown]
         public void AfterTest()
         {
-
+			if(Environment.IsTestFailed())
+				Screenshot.TakeScreenshot();
         }
 
         [OneTimeTearDown]
