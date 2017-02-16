@@ -7,24 +7,41 @@ using System.Linq;
 
 namespace nEkis.Automation.Core
 {
+    /// <summary>
+    /// Possibilities how to select element
+    /// </summary>
     public enum SelectBy
     {
+        /// <summary>
+        /// InnerHTML
+        /// </summary>
         Text,
+        /// <summary>
+        /// Value attribute
+        /// </summary>
         Value,
+        /// <summary>
+        /// Index of option (starts with 0)
+        /// </summary>
         Index
     }
 
-    public enum ImageType
-    {
-        OneToOne,
-        FourToThree,
-        SixteenToNine
-    }
-
+    /// <summary>
+    /// Basic javascript locators
+    /// </summary>
     public enum JavaScriptLocator
     {
+        /// <summary>
+        /// Id attribute
+        /// </summary>
         Id,
+        /// <summary>
+        /// Name attribute
+        /// </summary>
         Name,
+        /// <summary>
+        /// Tag name
+        /// </summary>
         Tag
     }
 
@@ -242,36 +259,6 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
-        /// Enters link of image from media library
-        /// Links must be in media library uploaded manualy on '/sitecore/media library/AutomationImages/' URL with names 'img11', 'img43' and 'img169'
-        /// If link to media library is different or images have different name its necessary to change their strings
-        /// </summary>
-        /// <param name="element">Uploead file/image button</param>
-        /// <param name="image">Type of image that should be inserted</param>
-        public static void EnterImage(this IWebElement element, ImageType image)
-        {
-            string imageLink;
-
-            switch (image)
-            {
-                case ImageType.OneToOne:
-                    imageLink = "/sitecore/media library/AutomationImages/img11";
-                    break;
-                case ImageType.FourToThree:
-                    imageLink = "/sitecore/media library/AutomationImages/img43";
-                    break;
-                case ImageType.SixteenToNine:
-                    imageLink = "/sitecore/media library/AutomationImages/img169";
-                    break;
-                default:
-                    imageLink = "/sitecore/media library/AutomationImages/img43";
-                    break;
-            }
-
-            element.EnterText(imageLink + Keys.Enter);
-        }
-
-        /// <summary>
         /// Enters path to .jpg or .png image in "/Testing files" directory
         /// This directory must be created manualy and some images must be present there
         /// </summary>
@@ -467,6 +454,7 @@ namespace nEkis.Automation.Core
         /// Locator must be unique or first in DOM
         /// </summary>
         /// <param name="element">Any HTML element</param>
+        /// <param name="locator">Locator available in JS</param>
         /// <param name="attribute">Name of attribute</param>
         /// <param name="value">Desired value</param>
         /// <returns>Given element</returns>

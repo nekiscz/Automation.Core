@@ -15,27 +15,62 @@ using System.Threading.Tasks;
 
 namespace nEkis.Automation.Core
 {
+    /// <summary>
+    /// These browsers are available and instaled with Core
+    /// </summary>
     public enum AvailableBrowsers
     {
+        /// <summary>
+        /// Chrome driver
+        /// </summary>
         Chrome,
+        /// <summary>
+        /// Gecko driver
+        /// </summary>
         Firefox,
+        /// <summary>
+        /// IE driver
+        /// </summary>
         IE,
+        /// <summary>
+        /// Headless PhantomJS driver
+        /// </summary>
         PhantomJS
     }
 
+    /// <summary>
+    /// Everything connected with driver
+    /// </summary>
     public class Browser
     {
+        /// <summary>
+        /// Browser window
+        /// </summary>
         public static IWebDriver Driver { get; set; }
+        /// <summary>
+        /// Event firing extention of driver
+        /// </summary>
         private static EventFiringWebDriver Edr { get; set; }
+        /// <summary>
+        /// Allows actions in driver
+        /// </summary>
         public static Actions ActionsBuilder { get; set; }
+        /// <summary>
+        /// Wait for driver actions
+        /// </summary>
         public static WebDriverWait BaseWait { get; set; }
+        /// <summary>
+        /// Represents a pseudo-random number generator, a device that produces a sequence of numbers that meet certain statistical requirements for randomness.
+        /// </summary>
         public static Random Random { get; set; }
 
         /// <summary>
-        /// Creates Driver and Event Firing Driver, creates rules for exception and events
+        /// Creates Driver (Chrome by default) and Event Firing Driver, creates rules for exceptions and events, wait set to 20s by default
         /// Also populates wait and builder for driver
         /// </summary>
-        public static void CreateDriver(AvailableBrowsers browser)
+        /// <param name="browser"></param>
+        /// <param name="waitsec"></param>
+        public static void CreateDriver(AvailableBrowsers browser = AvailableBrowsers.Chrome, int waitsec = 20)
         {
             switch (browser)
             {
@@ -65,7 +100,7 @@ namespace nEkis.Automation.Core
             Driver = Edr;
             Log.WriteLine("Event firing driver added to driver");
 
-            BaseWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(20));
+            BaseWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitsec));
             ActionsBuilder = new Actions(Driver);
         }
 

@@ -8,20 +8,11 @@ using System.Linq;
 
 namespace nEkis.Automation.Core.Utilities
 {
-    public enum LoggingPolicy
+    /// <summary>
+    /// Centralized way to log into console and text file
+    /// </summary>
+    public class Log
     {
-        All,
-        Base,
-        Error
-    }
-
-    class Log
-    {
-        /// <summary>
-        /// Policy of logging
-        /// </summary>
-        public static LoggingPolicy LogPolicy { get; set; }
-
         /// <summary>
         /// Listner for console
         /// </summary>
