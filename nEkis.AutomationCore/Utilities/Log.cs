@@ -9,7 +9,7 @@ using System.Linq;
 namespace nEkis.Automation.Core.Utilities
 {
     /// <summary>
-    /// Centralized way to log into console and text file
+    /// Allows to log into console and text file
     /// </summary>
     public class Log
     {

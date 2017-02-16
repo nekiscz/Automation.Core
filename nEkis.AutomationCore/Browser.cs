@@ -88,7 +88,7 @@ namespace nEkis.Automation.Core
                     break;
             }
 
-            Log.WriteLine("Driver created (" + Driver.GetType().Name + ")");
+            Log.WriteLine("Driver created ({0})", Driver.GetType().Name);
             Edr = new EventFiringWebDriver(Driver);
             Log.WriteLine("Event firing driver created");
 
@@ -115,14 +115,14 @@ namespace nEkis.Automation.Core
             {
                 string text = e.Element.GetText();
                 if (string.IsNullOrEmpty(text))
-                    Log.WriteLine(string.Format("// Cleared elements value or no text put in: {0}", e.Element.GetAttribute("outerHTML")));
+                    Log.WriteLine("// Cleared elements value or no text put in: {0}", e.Element.GetAttribute("outerHTML"));
                 else
-                    Log.WriteLine(string.Format("// Changed value: '{0}' of element '{1}'", text, e.Element.GetAttribute("outerHTML")));
+                    Log.WriteLine("// Changed value: '{0}' of element '{1}'", text, e.Element.GetAttribute("outerHTML"));
 
             }
             catch (Exception ex) when (ex is StaleElementReferenceException || ex is NoSuchElementException)
             {
-                Log.WriteLine(string.Format("// Element is no longer present in DOM and can't be logged ({0})", ex.Message));
+                Log.WriteLine("// Element is no longer present in DOM and can't be logged ({0})", ex.Message);
             }
         }
 
@@ -140,7 +140,7 @@ namespace nEkis.Automation.Core
             else if (!string.IsNullOrEmpty(e.Element.GetAttribute("value")))
                 elementText = e.Element.GetAttribute("value");
 
-            Log.WriteLine(string.Format("// Clicked on element: '{0}' ({1})", elementText, e.Element.GetAttribute("outerHTML")));
+            Log.WriteLine("// Clicked on element: '{0}' ({1})", elementText, e.Element.GetAttribute("outerHTML"));
         }
 
         /// <summary>
@@ -153,6 +153,11 @@ namespace nEkis.Automation.Core
             Log.WriteLine("// Navigating to URL: " + e.Url);
         }
 
+        /// <summary>
+        /// Is fired when exeption in test is thrown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Object representing the browser</param>
         private static void Edr_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
         {
             Log.WriteLine("---- Exception in test, message: " + e.ThrownException.Message);
@@ -177,7 +182,7 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
-        /// Quits driver - closes window and deletes profile from temp
+        /// Quits driver (closes window and deletes profile from temp), closes logs
         /// </summary>
         public static void QuitDriver()
         {
@@ -196,6 +201,8 @@ namespace nEkis.Automation.Core
                 Driver = null;
                 Log.WriteLine("Driver closed and profile deleted");
             }
+
+            Log.CloseTracers();
         }
 
         /// <summary>

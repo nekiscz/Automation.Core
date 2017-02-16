@@ -8,15 +8,30 @@ using System.Threading.Tasks;
 
 namespace nEkis.Automation.Core
 {
-    class Environment
+    /// <summary>
+    /// Context of environment and test
+    /// </summary>
+    public class Environment
     {
-        public static string TestPath { get; set; } = TestContext.CurrentContext.TestDirectory;
+        /// <summary>
+        /// Gets directory to tests (usualy same as dll directory)
+        /// </summary>
+        public static string TestPath { get; } = TestContext.CurrentContext.TestDirectory;
+        /// <summary>
+        /// Gets number of failed tests
+        /// </summary>
         public static int FailCount { get { return TestContext.CurrentContext.Result.FailCount; } }
-        public static string  TestName { get { return TestContext.CurrentContext.Test.Name; } }
+        /// <summary>
+        /// Gets name of current test
+        /// </summary>
+        public static string TestName { get { return TestContext.CurrentContext.Test.Name; } }
+        /// <summary>
+        /// List of failed test names, needs to run IsTestFailed() or SaveFailedTest()
+        /// </summary>
         public static List<string> FailedTests { get; set; }
 
         /// <summary>
-        /// Gets value representing if the test failed
+        /// Gets value representing if the test failed, runs SaveFailedTest() if failed
         /// </summary>
         /// <returns>True if test failed</returns>
         public static bool IsTestFailed()
@@ -24,11 +39,18 @@ namespace nEkis.Automation.Core
             var failed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed;
 
             if (failed)
-                FailedTests.Add(TestContext.CurrentContext.Test.Name);
+                SaveFailedTest();
 
             return failed;
         }
 
+        /// <summary>
+        /// Saves test name into FailedTests list
+        /// </summary>
+        public static void SaveFailedTest()
+        {
+            FailedTests.Add(TestContext.CurrentContext.Test.Name);
+        }
 
     }
 }
