@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\nEkis.Automation.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,8 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="content\PageObject\_BasePage.cs" />
-    <Compile Include="content\Test\_BaseTest.cs" />
+    <None Include="content\PageObject\_BasePage.cs.pp" />
+    <None Include="content\Test\_BaseTest.cs.pp" />
     <Compile Include="Browser.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Utilities\Screenshot.cs" />

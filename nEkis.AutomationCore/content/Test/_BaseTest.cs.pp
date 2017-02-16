@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using nEkis.Automation.Core;
 using NUnit.Framework;
 
-namespace nEkis.Automation.Core.Test
+namespace $rootnamespace$.Tests
 {
     class BaseTest
     {

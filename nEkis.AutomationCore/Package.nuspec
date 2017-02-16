@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>nEkis.Automation.Core</id>
-    <version>0.1.002</version>
+    <version>0.1.9</version>
     <authors>nekiscz</authors>
     <owners>David Nekovář</owners>
     <licenseUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/LICENSE</licenseUrl>
@@ -18,8 +18,10 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="content\PageObject\_BasePage.cs" target="content\PageObject\_BasePage.cs" />
-    <file src="content\Test\_BaseTest.cs" target="content\Test\_BaseTest.cs" />
+    <file src="content\PageObject\_BasePage.cs.pp" target="content\PageObjects\" />
+    <file src="content\Test\_BaseTest.cs.pp" target="content\Tests\" />
     <file src="App.config.transform" target="content\App.config.transform" />
+    <file src="bin\Debug\nEkis.Automation.Core.dll" target="lib\nEkis.Automation.Core.dll" />
+    <file src="bin\Debug\nEkis.Automation.Core.XML" target="lib\nEkis.Automation.Core.XML" />
   </files>
 </package>
