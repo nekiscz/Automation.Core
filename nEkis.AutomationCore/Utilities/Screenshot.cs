@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nEkis.AutomationCore.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     class Screenshot
     {

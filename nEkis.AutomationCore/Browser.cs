@@ -1,4 +1,4 @@
-﻿using nEkis.AutomationCore.Utilities;
+﻿using nEkis.Automation.Core.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nEkis.AutomationCore
+namespace nEkis.Automation.Core
 {
     public enum AvailableBrowsers
     {

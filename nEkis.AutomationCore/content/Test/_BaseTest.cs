@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace nEkis.AutomationCore.Test
+namespace nEkis.Automation.Core.Test
 {
     class BaseTest
     {

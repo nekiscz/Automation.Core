@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nEkis.AutomationCore
+namespace nEkis.Automation.Core
 {
     class Environment
     {

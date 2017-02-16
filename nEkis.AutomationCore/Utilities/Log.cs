@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace nEkis.AutomationCore.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     public enum LoggingPolicy
     {

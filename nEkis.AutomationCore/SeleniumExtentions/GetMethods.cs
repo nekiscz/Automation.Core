@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace nEkis.AutomationCore
+namespace nEkis.Automation.Core
 {
     static class GetMethods
     {

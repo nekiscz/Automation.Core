@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace nEkis.AutomationCore.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     public class Lorem
     {

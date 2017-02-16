@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nEkis.AutomationCore.PageObject
+namespace nEkis.Automation.Core.PageObject
 {
     class BasePage
     {

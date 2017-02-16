@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace nEkis.AutomationCore
+namespace nEkis.Automation.Core
 {
     public enum SelectBy
     {
