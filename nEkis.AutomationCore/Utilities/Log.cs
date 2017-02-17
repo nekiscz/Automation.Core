@@ -34,12 +34,13 @@ namespace nEkis.Automation.Core.Utilities
 
             Trace.Listeners.Clear();
 
-            LogPath = Environment.TestPath + @ConfigurationManager.AppSettings["logdirectory"];
+            LogPath = Environment.TestPath + string.Format(@ConfigurationManager.AppSettings["logdirectory"],
+                DateTime.Now.ToString(Environment.DateFormat));
 
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);
 
-            var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+            var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString(Environment.DateTimeFormat));
 
             LogPath = LogPath + logName;
 

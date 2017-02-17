@@ -2,11 +2,15 @@
 <configuration>
   <!-- Documentation is available at: https://github.com/nekiscz/Automation.Core/wiki -->
   <appSettings>
+    <add key="dateformat" value="yyyyMMdd" />
+    <add key="datetimeformat" value="yyyyMMdd-HHmmss" />
+    <!-- Path to directory of logs, {0} represents date in 'dateformat'-->
     <add key="logdirectory" value="\Log\"/>
-    <!-- Path to log file, {0} represents current date in yyyyMMdd-HHmmss format -->
+    <!-- Path to log file, {0} represents current date in 'datetimeformat' format -->
     <add key="logname" value="testlog.{0}.txt"/>
+    <!-- Path to directory of logs, {0} represents date in 'dateformat'-->
     <add key="screenshotdirectory" value="\Screenshots\" />
-    <!-- Name of taken screenshot, {0} represents name of test and {1} represents current date in yyyyMMdd-HHmmss format, has to contain suffix -->
-    <add key="screenshotname" value="{0}.{1}.png" />
+    <!-- Name of taken screenshot, {0} represents current date in 'datetimeformat' format and {1} represents name of test, has to contain suffix -->
+    <add key="screenshotname" value="{1}.{0}.png" />
   </appSettings>
 </configuration>

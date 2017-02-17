@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>nEkis.Automation.Core</id>
-    <version>0.1.15</version>
+    <version>1.0.1</version>
     <authors>nekiscz</authors>
     <owners>David Nekovář</owners>
     <licenseUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/LICENSE</licenseUrl>

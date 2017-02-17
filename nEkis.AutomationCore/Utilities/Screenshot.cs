@@ -21,31 +21,24 @@ namespace nEkis.Automation.Core.Utilities
             get
             {
                 return string.Format(@ConfigurationManager.AppSettings["screenshotname"],
-                    Environment.TestName, DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+                    Environment.TestName, DateTime.Now.ToString(Environment.DateTimeFormat));
             }
         }
 
         static Screenshot()
         {
-            ShotPath = Environment.TestPath + @ConfigurationManager.AppSettings["screenshotdirectory"];
+            ShotPath = Environment.TestPath + string.Format(@ConfigurationManager.AppSettings["screenshotdirectory"],
+                DateTime.Now.ToString(Environment.DateFormat));
 
             if (!Directory.Exists(ShotPath))
                 Directory.CreateDirectory(ShotPath);
         }
 
         /// <summary>
-        /// Takes screenshot and saves it in desired location, in PNG format
-        /// </summary>
-        public static void TakeScreenshot()
-        {
-            TakeScreenshot(ImageFormat.Png);
-        }
-
-        /// <summary>
         /// Takes screenshot and saves it in desired location
         /// </summary>
         /// <param name="format">Format of image file</param>
-        public static void TakeScreenshot(ImageFormat format)
+        public static void TakeScreenshot(ScreenshotImageFormat format = ScreenshotImageFormat.Png)
         {
             OpenQA.Selenium.Screenshot shot = ((ITakesScreenshot)Browser.Driver).GetScreenshot();
             shot.SaveAsFile(ShotPath + ShotName, format);

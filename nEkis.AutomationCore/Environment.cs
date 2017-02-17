@@ -2,6 +2,7 @@
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,11 +34,20 @@ namespace nEkis.Automation.Core
         /// True if test failed
         /// </summary>
         public static bool IsFailed { get { return TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed; } }
-        
+        /// <summary>
+        /// Holds universal string representing date and time format
+        /// </summary>
+        public static string DateTimeFormat { get; set; }
+        /// <summary>
+        /// Holds universal string representing date format
+        /// </summary>
+        public static string DateFormat { get; set; }
 
         static Environment()
         {
             FailedTests = new List<string>();
+            DateTimeFormat = ConfigurationManager.AppSettings["datetimeformat"];
+            DateFormat = ConfigurationManager.AppSettings["dateformat"];
         }
 
         /// <summary>
