@@ -39,7 +39,9 @@ namespace nEkis.Automation.Core.Utilities
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);
 
-            LogPath = LogPath + "\\" + ConfigurationManager.AppSettings["logname"];
+            var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+
+            LogPath = LogPath + logName;
 
             twtl = new TextWriterTraceListener(LogPath);
             ctl = new ConsoleTraceListener(false);
@@ -119,7 +121,7 @@ namespace nEkis.Automation.Core.Utilities
                 WriteLine(".");
             }
             WriteLine("END - Test {0} - {1}", new object[] { Environment.TestName, DateTime.Now.ToString("dd. MM. yyyy HH:mm:ss") });
-            if (Environment.IsTestFailed())
+            if (Environment.IsFailed)
                 WriteLine("Error message: {0}\r\n", TestContext.CurrentContext.Result.Message);
         }
 

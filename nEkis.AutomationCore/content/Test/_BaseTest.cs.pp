@@ -9,18 +9,20 @@ namespace $rootnamespace$.Tests
         [OneTimeSetUp]
         public void BeforeAllTests()
         {
+			Log.StartOfFixture();
             Browser.CreateDriver(AvailableBrowsers.Chrome);
         }
 
         [SetUp]
         public void BeforeTest()
         {
-
+			Log.StartOfTest();
         }
 
         [TearDown]
         public void AfterTest()
         {
+			Log.EndOfTest();
 			if(Environment.IsTestFailed())
 				Screenshot.TakeScreenshot();
         }
@@ -28,6 +30,7 @@ namespace $rootnamespace$.Tests
         [OneTimeTearDown]
         public void AfterAllTests()
         {
+		    Log.EndOfFixture();
             Browser.QuitDriver();
         }
 

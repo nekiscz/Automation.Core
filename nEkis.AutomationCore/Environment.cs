@@ -29,6 +29,16 @@ namespace nEkis.Automation.Core
         /// List of failed test names, needs to run IsTestFailed() or SaveFailedTest()
         /// </summary>
         public static List<string> FailedTests { get; set; }
+        /// <summary>
+        /// True if test failed
+        /// </summary>
+        public static bool IsFailed { get { return TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed; } }
+        
+
+        static Environment()
+        {
+            FailedTests = new List<string>();
+        }
 
         /// <summary>
         /// Gets value representing if the test failed, runs SaveFailedTest() if failed
@@ -36,7 +46,7 @@ namespace nEkis.Automation.Core
         /// <returns>True if test failed</returns>
         public static bool IsTestFailed()
         {
-            var failed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed;
+            var failed = IsFailed;
 
             if (failed)
                 SaveFailedTest();
