@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace nEkis.Automation.Core
 {
-    static class GetMethods
+    /// <summary>
+    /// Extension methods geting data from IWebElements and IList&lt;IWebElement&gt;
+    /// </summary>
+    public static class GetMethods
     {
         /// <summary>
         /// Gets text from selected option or fields depending on element
@@ -59,7 +62,7 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
-        /// Gets value indicating if element is displazed 
+        /// Gets value indicating if element is displayed 
         /// </summary>
         /// <param name="element">Any HTML element</param>
         /// <returns>True if displayed</returns>
@@ -68,6 +71,11 @@ namespace nEkis.Automation.Core
             return element.Displayed;
         }
 
+        /// <summary>
+        /// Gets value indicating if element is can be manipulated by user
+        /// </summary>
+        /// <param name="element">Any HTML element</param>
+        /// <returns>True if enabled</returns>
         public static bool IsEnabled(this IWebElement element)
         {
             return element.Enabled;

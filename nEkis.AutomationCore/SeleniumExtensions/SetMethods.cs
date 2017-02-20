@@ -45,7 +45,10 @@ namespace nEkis.Automation.Core
         Tag
     }
 
-    static class SetMethods
+    /// <summary>
+    /// Extension methods manipulating IWebElements and IList&lt;IWebElement&gt; 
+    /// </summary>
+    public static class SetMethods
     {
         /// <summary>
         /// Waits for element and than clears element it
