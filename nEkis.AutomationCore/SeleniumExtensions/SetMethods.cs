@@ -273,17 +273,6 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
-        /// Enters ranadom file with given sufix 
-        /// </summary>
-        /// <param name="element"></param>
-        /// <param name="suffix">Needed sufix with dot, aka: ".jpeg"</param>
-        public static void EnterRandomFile(this IWebElement element, string suffix)
-        {
-            var file = Path.GetFullPath(Directory.GetFiles(@"Testing Files").Where(r => r.Contains(suffix)).OrderBy(i => Browser.Random.Next()).First());
-            element.SendKeys(file);
-        }
-
-        /// <summary>
         /// Enters file on relative path
         /// </summary>
         /// <param name="element">Uploead file/image button</param>
@@ -430,7 +419,7 @@ namespace nEkis.Automation.Core
         /// <returns>Given element</returns>
         public static IWebElement ScrollElementToView(this IWebElement element)
         {
-            string js = String.Format("window.scrollTo({0}, {1})", element.Location.X, element.Location.Y);
+            string js = string.Format("window.scrollTo({0}, {1})", element.Location.X, element.Location.Y);
             IJavaScriptExecutor jsExe = (IJavaScriptExecutor)Browser.Driver;
             jsExe.ExecuteScript(js);
 

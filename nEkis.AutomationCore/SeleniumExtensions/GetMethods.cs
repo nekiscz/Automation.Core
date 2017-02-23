@@ -35,6 +35,16 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
+        /// Gets text in innerHTML
+        /// </summary>
+        /// <param name="element">Any HTML element</param>
+        /// <returns>InnerHTML</returns>
+        public static string GetInnerHtml(this IWebElement element)
+        {
+            return element.Text;
+        }
+
+        /// <summary>
         /// Gets text for each element in list
         /// </summary>
         /// <param name="elements">List of elements, can be any HTML elements (doesnt have to be consistent)</param>
@@ -46,6 +56,23 @@ namespace nEkis.Automation.Core
             foreach (var element in elements)
             {
                 texts.Add(element.GetText());
+            }
+
+            return texts;
+        }
+
+        /// <summary>
+        /// Gets innerHTML from list of elements
+        /// </summary>
+        /// <param name="elements">Any HTML elements</param>
+        /// <returns>List of innerHTML</returns>
+        public static List<string> GetInnerHtml(this IList<IWebElement> elements)
+        {
+            List<string> texts = new List<string>();
+
+            foreach (var element in elements)
+            {
+                texts.Add(element.GetInnerHtml());
             }
 
             return texts;
@@ -96,7 +123,6 @@ namespace nEkis.Automation.Core
             }
             catch (Exception ex) when (ex is NoSuchElementException || ex is StaleElementReferenceException)
             {
-                System.Threading.Thread.Sleep(50);
                 return false;
             }
         }

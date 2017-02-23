@@ -154,11 +154,5 @@ namespace nEkis.Automation.Core.Utilities
         {
             WriteLine(string.Format(text, arg));
         }
-
-        private static string RandomString(int length)
-        {
-            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length).Select(s => s[Browser.Random.Next(s.Length)]).ToArray());
-        }
     }
 }

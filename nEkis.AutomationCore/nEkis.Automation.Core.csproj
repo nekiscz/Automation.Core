@@ -60,7 +60,9 @@
     <None Include="content\PageObject\_BasePage.cs.pp" />
     <None Include="content\Test\_BaseTest.cs.pp" />
     <Compile Include="Browser.cs" />
+    <Compile Include="Utilities\HelperClasses\EnumHelper.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="Utilities\HelperClasses\StringHelper.cs" />
     <Compile Include="Utilities\Screenshot.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Utilities\Lorem.cs" />

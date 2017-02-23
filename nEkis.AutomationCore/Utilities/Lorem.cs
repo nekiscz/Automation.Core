@@ -69,25 +69,6 @@ namespace nEkis.Automation.Core.Utilities
         }
 
         /// <summary>
-        /// Generates random string
-        /// </summary>
-        /// <param name="size">Number of characters</param>
-        /// <returns>Random string</returns>
-        public static string RandomString(int size)
-        {
-            StringBuilder builder = new StringBuilder();
-            char ch;
-
-            for (int i = 0; i < size; i++)
-            {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Browser.Random.NextDouble() + 65)));
-                builder.Append(ch);
-            }
-
-            return builder.ToString();
-        }
-
-        /// <summary>
         /// Gets random time period
         /// </summary>
         /// <returns>Time period</returns>
