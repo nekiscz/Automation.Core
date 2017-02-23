@@ -10,7 +10,7 @@ namespace $rootnamespace$.Tests
         public void BeforeAllTests()
         {
 			Log.StartOfFixture();
-            Browser.CreateDriver(AvailableBrowsers.Chrome);
+            Browser.CreateDriver();
         }
 
         [SetUp]

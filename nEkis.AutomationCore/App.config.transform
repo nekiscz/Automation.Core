@@ -8,9 +8,14 @@
     <add key="logdirectory" value="\Log\"/>
     <!-- Path to log file, {0} represents current date in 'datetimeformat' format -->
     <add key="logname" value="testlog.{0}.txt"/>
-    <!-- Path to directory of logs, {0} represents date in 'dateformat'-->
+    <!-- Path to directory of screenshots, {0} represents date in 'dateformat'-->
     <add key="screenshotdirectory" value="\Screenshots\" />
     <!-- Name of taken screenshot, {0} represents current date in 'datetimeformat' format and {1} represents name of test, has to contain suffix -->
     <add key="screenshotname" value="{1}.{0}.png" />
+    <!-- Path to directory of screen captures, {0} represents date in 'dateformat'-->
+    <add key="screencapturedirectory" value="\Screencapture\"/>
+    <!-- Name of taken video, {0} represents current date in 'datetimeformat' format and {1} represents name of test, has to contain suffix -->
+    <add key="screencapturename" value="{1}.{0}.avi" />
+    <add key="screencapturerectangle" value="All" />   
   </appSettings>
 </configuration>
