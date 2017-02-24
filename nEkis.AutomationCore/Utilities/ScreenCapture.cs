@@ -4,6 +4,7 @@ using Screna.FFMpeg;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace nEkis.Automation.Core.Utilities
         enum Area
         {
             All,
+            Driver,
             Rectangle
         }
 
@@ -48,7 +50,7 @@ namespace nEkis.Automation.Core.Utilities
         /// <summary>
         /// Instance of WindowProvider
         /// </summary>
-        public static WindowProvider WinwProvider { get; set; }
+        public static WindowProvider WinProvider { get; set; }
         /// <summary>
         /// Instance of RegionProvider
         /// </summary>
@@ -62,42 +64,49 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         public static Recorder Rec { get; set; }
         /// <summary>
-        /// Rectangle to capture
+        /// Rectangle to capture by default set to rectangle of 1920x1080px without offset
         /// </summary>
         public static Rectangle Rect { get; set; } = new Rectangle(0, 0, 1920, 1080);
         /// <summary>
         /// Window to capture
         /// </summary>
         public static Window Win { get; set; } = null;
-        /// <summary>
-        /// Frame rate of video
-        /// </summary>
-        public static int FrameRate { get; set; } = 10;
 
         /// <summary>
-        /// Capture for desktop in 30fps
+        /// Initializes ScreenCapture parameters
         /// </summary>
-        static ScreenCapture()
+        /// <param name="framerate">Framerate of the video</param>
+        public ScreenCapture(int framerate = 10)
         {
             CaptureArea = EnumHelper.Parse<Area>(ConfigurationManager.AppSettings["screencapturerectangle"]);
 
-            if (!Directory.Exists(FullPath))
-                Directory.CreateDirectory(FullPath);
+            Init(framerate);
+        }
 
-            WinwProvider = new WindowProvider(Win);
-            RgnProvider = new RegionProvider(Rect, null);
+        /// <summary>
+        /// Initializes ScreenCapture parameters for specific window
+        /// </summary>
+        /// <param name="window">Window to be captured</param>
+        /// <param name="framerate">Framerate of video</param>
+        public ScreenCapture(Window window, int framerate = 10)
+        {
+            CaptureArea = Area.Driver;
 
-            Writer = new AviWriter(FullName, AviCodec.MotionJpeg);
+            Win = window;
+            Init(framerate);
+        }
 
-            switch (CaptureArea)
-            {
-                case Area.All:
-                    Rec = new Recorder(Writer, WinwProvider, FrameRate);
-                    break;
-                case Area.Rectangle:
-                    Rec = new Recorder(Writer, RgnProvider, FrameRate);
-                    break;
-            }
+        /// <summary>
+        /// Initializes ScreenCapture parameters for specific rectangle
+        /// </summary>
+        /// <param name="rectangle">Rectangle to be captured</param>
+        /// <param name="framerate">Framerate of video</param>
+        public ScreenCapture(Rectangle rectangle, int framerate = 10)
+        {
+            CaptureArea = Area.Rectangle;
+
+            Rect = rectangle;
+            Init(framerate);
         }
 
         /// <summary>
@@ -127,5 +136,55 @@ namespace nEkis.Automation.Core.Utilities
             Rec.Stop();
             Log.WriteLine("Video recording stoped");
         }
+
+        private IntPtr GetDriverWindow()
+        {
+            var process = Process.GetProcesses().FirstOrDefault(x => x.ProcessName.ToLower().Contains("driver"));
+            return process.Handle;
+        }
+
+        private void CreateDirectory()
+        {
+            if (!Directory.Exists(FullPath))
+                Directory.CreateDirectory(FullPath);
+        }
+
+        private void Init(int framerate)
+        {
+            CreateDirectory();
+
+            Writer = new AviWriter(FullName, AviCodec.MotionJpeg);
+
+            switch (CaptureArea)
+            {
+                case Area.All:
+                    WinProvider = new WindowProvider(Window.DesktopWindow);
+                    Rec = new Recorder(Writer, WinProvider, framerate);
+                    break;
+                case Area.Driver:
+
+                    try
+                    {
+                        Win.Equals(null);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        Win = new Window(GetDriverWindow());
+                    }
+
+                    WinProvider = new WindowProvider(Win).;
+                    Rec = new Recorder(Writer, WinProvider, framerate);
+                    break;
+                case Area.Rectangle:
+                    RgnProvider = new RegionProvider(Rect, null);
+                    Rec = new Recorder(Writer, RgnProvider, framerate);
+                    break;
+                default:
+                    WinProvider = new WindowProvider(Window.DesktopWindow);
+                    Rec = new Recorder(Writer, WinProvider, framerate);
+                    break;
+            }
+        }
+
     }
 }
