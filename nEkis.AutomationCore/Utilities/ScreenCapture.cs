@@ -36,20 +36,15 @@ namespace nEkis.Automation.Core.Utilities
         {
             get
             {
-                return Environment.TestPath + string.Format(@ConfigurationManager.AppSettings["screencapturename"],
-                    DateTime.Now.ToString(Environment.DateFormat),
+                return string.Format(@ConfigurationManager.AppSettings["screencapturename"],
+                    DateTime.Now.ToString(Environment.DateTimeFormat),
                     Environment.TestName);
             }
         }
 
-        public static string FullName { get { return FullPath + FullName; }}
-        private static Area CaptureArea
-        {
-            get
-            {
-                return EnumHelper.Parse<Area>(ConfigurationManager.AppSettings["screencapturerectangle"]);
-            }
-        }
+        private static string FullName { get { return FullPath + VideoName; } }
+        private static Area CaptureArea { get; set; }
+
         /// <summary>
         /// Instance of WindowProvider
         /// </summary>
@@ -71,24 +66,30 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         public static Rectangle Rect { get; set; } = new Rectangle(0, 0, 1920, 1080);
         /// <summary>
+        /// Window to capture
+        /// </summary>
+        public static Window Win { get; set; } = null;
+        /// <summary>
         /// Frame rate of video
         /// </summary>
-        public static int FrameRate { get; set; } = 30;
+        public static int FrameRate { get; set; } = 10;
 
         /// <summary>
         /// Capture for desktop in 30fps
         /// </summary>
         static ScreenCapture()
         {
+            CaptureArea = EnumHelper.Parse<Area>(ConfigurationManager.AppSettings["screencapturerectangle"]);
+
             if (!Directory.Exists(FullPath))
                 Directory.CreateDirectory(FullPath);
 
-            WinwProvider = new WindowProvider(Window.DesktopWindow);
+            WinwProvider = new WindowProvider(Win);
             RgnProvider = new RegionProvider(Rect, null);
 
-            Writer = new AviWriter("output.avi", AviCodec.MotionJpeg);
+            Writer = new AviWriter(FullName, AviCodec.MotionJpeg);
 
-            switch (CaptureArea) 
+            switch (CaptureArea)
             {
                 case Area.All:
                     Rec = new Recorder(Writer, WinwProvider, FrameRate);

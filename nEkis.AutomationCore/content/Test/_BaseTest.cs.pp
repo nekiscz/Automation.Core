@@ -33,6 +33,5 @@ namespace $rootnamespace$.Tests
 		    Log.EndOfFixture();
             Browser.QuitDriver();
         }
-
     }
 }

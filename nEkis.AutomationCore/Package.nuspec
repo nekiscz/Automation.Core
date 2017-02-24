@@ -2,9 +2,9 @@
 <package >
   <metadata>
     <id>nEkis.Automation.Core</id>
-    <version>0.2.11</version>
+    <version>0.2.18</version>
     <authors>nekiscz</authors>
-    <owners>David Nekovář</owners>
+    <owners>David Nekovar</owners>
     <licenseUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/nekiscz/Automation.Core</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/nekis.ico</iconUrl>
