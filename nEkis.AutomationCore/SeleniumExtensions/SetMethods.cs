@@ -262,13 +262,13 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
-        /// Enters path to .jpg or .png image in "/Testing files" directory
+        /// Enters path to .jpg or .png image in "/Testingfiles" directory
         /// This directory must be created manualy and some images must be present there
         /// </summary>
         /// <param name="element">Uploead file/image button</param>
         public static void EnterRandomImage(this IWebElement element)
         {
-            var image = Path.GetFullPath(Directory.GetFiles(@"Testing Files").Where(r => r.Contains(".jpg") || r.Contains(".png")).OrderBy(i => Browser.Random.Next()).First());
+            var image = Path.GetFullPath(Directory.GetFiles(TestEnvironment.TestPath + @"TestingFiles").Where(r => r.Contains(".jpg") || r.Contains(".png")).OrderBy(i => Browser.Random.Next()).First());
             element.SendKeys(image);
         }
 
@@ -397,7 +397,7 @@ namespace nEkis.Automation.Core
         /// <returns>Given element</returns>
         public static IWebElement WaitTillOptionsPresent(this IWebElement element)
         {
-            Browser.BaseWait.Until((d) => element.FindElements(By.TagName("option")).Count > 1);
+            Browser.BaseWait.Until((d) => element.FindElements(By.TagName("option")).Count > 0);
             return element;
         }
 
