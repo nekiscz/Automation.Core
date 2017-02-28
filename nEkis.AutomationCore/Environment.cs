@@ -12,7 +12,7 @@ namespace nEkis.Automation.Core
     /// <summary>
     /// Context of environment and test
     /// </summary>
-    public class Environment
+    public class TestEnvironment
     {
         /// <summary>
         /// Gets directory to tests (usualy same as dll directory)
@@ -42,12 +42,17 @@ namespace nEkis.Automation.Core
         /// Holds universal string representing date format
         /// </summary>
         public static string DateFormat { get; set; }
+        /// <summary>
+        /// Holds universal string representing readable form of date format
+        /// </summary>
+        public static string ReadableDateTimeFormat { get; set; }
 
-        static Environment()
+        static TestEnvironment()
         {
             FailedTests = new List<string>();
             DateTimeFormat = ConfigurationManager.AppSettings["datetimeformat"];
             DateFormat = ConfigurationManager.AppSettings["dateformat"];
+            ReadableDateTimeFormat = ConfigurationManager.AppSettings["readabledateformat"];
         }
 
         /// <summary>

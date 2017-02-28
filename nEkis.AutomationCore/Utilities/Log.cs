@@ -34,13 +34,13 @@ namespace nEkis.Automation.Core.Utilities
 
             Trace.Listeners.Clear();
 
-            LogPath = Environment.TestPath + string.Format(@ConfigurationManager.AppSettings["logdirectory"],
-                DateTime.Now.ToString(Environment.DateFormat));
+            LogPath = TestEnvironment.TestPath + string.Format(@ConfigurationManager.AppSettings["logdirectory"],
+                DateTime.Now.ToString(TestEnvironment.DateFormat));
 
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);
 
-            var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString(Environment.DateTimeFormat));
+            var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString(TestEnvironment.DateTimeFormat));
 
             LogPath = LogPath + logName;
 
@@ -68,8 +68,8 @@ namespace nEkis.Automation.Core.Utilities
             startTime = DateTime.Now;
             WriteLine("----------------------------------------------------------------------------------------------------------");
             WriteLine("TESTING STARTED");
-            WriteLine("Local date and time: " + startTime.ToString("d. M. yyyy H:m:s"));
-            WriteLine("Test directory: " + Environment.TestPath);
+            WriteLine("Local date and time: " + startTime.ToString(TestEnvironment.ReadableDateTimeFormat));
+            WriteLine("Test directory: " + TestEnvironment.TestPath);
             WriteLine("----------------------------------------------------------------------------------------------------------");
         }
 
@@ -82,15 +82,15 @@ namespace nEkis.Automation.Core.Utilities
             TimeSpan duration = endTime - startTime;
 
             WriteLine("----------------------------------------------------------------------------------------------------------");
-            WriteLine("Local time: " + endTime.ToString("d. M. yyyy H:m:s"));
+            WriteLine("Local time: " + endTime.ToString(TestEnvironment.ReadableDateTimeFormat));
             WriteLine("Testing took: " + duration.ToString("c") + " (" + duration.TotalSeconds + "s)");
-            WriteLine("Number of failed tests: " + Environment.FailCount.ToString());
+            WriteLine("Number of failed tests: " + TestEnvironment.FailCount.ToString());
 
-            if (Environment.FailedTests.Count > 0)
+            if (TestEnvironment.FailedTests.Count > 0)
             {
                 WriteLine("Failed tests:");
 
-                foreach (var test in Environment.FailedTests)
+                foreach (var test in TestEnvironment.FailedTests)
                 {
                     WriteLine("\t{0}", test);
                 }
@@ -104,7 +104,7 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         public static void StartOfTest()
         {
-            WriteLine("START [{0}] - {1}", new object[] { Environment.TestName, DateTime.Now.ToString("dd. MM. yyyy HH:mm:ss") });
+            WriteLine("START [{0}] - {1}", new object[] { TestEnvironment.TestName, DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat) });
             for (int i = 0; i < 3; i++)
             {
 
@@ -121,8 +121,8 @@ namespace nEkis.Automation.Core.Utilities
             {
                 WriteLine(".");
             }
-            WriteLine("END - Test {0} - {1}", new object[] { Environment.TestName, DateTime.Now.ToString("dd. MM. yyyy HH:mm:ss") });
-            if (Environment.IsFailed)
+            WriteLine("END - Test {0} - {1}", new object[] { TestEnvironment.TestName, DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat) });
+            if (TestEnvironment.IsFailed)
                 WriteLine("Error message: {0}\r\n", TestContext.CurrentContext.Result.Message);
         }
 

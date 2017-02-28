@@ -21,14 +21,14 @@ namespace nEkis.Automation.Core.Utilities
             get
             {
                 return string.Format(@ConfigurationManager.AppSettings["screenshotname"],
-                    Environment.TestName, DateTime.Now.ToString(Environment.DateTimeFormat));
+                    TestEnvironment.TestName, DateTime.Now.ToString(TestEnvironment.DateTimeFormat));
             }
         }
 
         static Screenshot()
         {
-            ShotPath = Environment.TestPath + string.Format(@ConfigurationManager.AppSettings["screenshotdirectory"],
-                DateTime.Now.ToString(Environment.DateFormat));
+            ShotPath = TestEnvironment.TestPath + string.Format(@ConfigurationManager.AppSettings["screenshotdirectory"],
+                DateTime.Now.ToString(TestEnvironment.DateFormat));
 
             if (!Directory.Exists(ShotPath))
                 Directory.CreateDirectory(ShotPath);
