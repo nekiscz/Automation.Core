@@ -247,6 +247,15 @@ namespace nEkis.Automation.Core
         }
 
         /// <summary>
+        /// Navigates to URL
+        /// </summary>
+        /// <param name="url">URL to navigate to</param>
+        public static void GoToUrl(string url)
+        {
+            Driver.Navigate().GoToUrl(url);
+        }
+
+        /// <summary>
         /// Navigates back one entry in history
         /// </summary>
         public static void GoBack()
