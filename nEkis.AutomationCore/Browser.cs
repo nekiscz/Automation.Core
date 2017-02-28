@@ -8,10 +8,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace nEkis.Automation.Core
 {
@@ -102,6 +98,7 @@ namespace nEkis.Automation.Core
 
             BaseWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitsec));
             ActionsBuilder = new Actions(Driver);
+            Random = new Random();
         }
 
         /// <summary>
