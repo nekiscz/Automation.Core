@@ -172,7 +172,7 @@ namespace nEkis.Automation.Core.Utilities
                         Win = new Window(GetDriverWindow());
                     }
 
-                    WinProvider = new WindowProvider(Win).;
+                    WinProvider = new WindowProvider(Win);
                     Rec = new Recorder(Writer, WinProvider, framerate);
                     break;
                 case Area.Rectangle:
@@ -185,6 +185,5 @@ namespace nEkis.Automation.Core.Utilities
                     break;
             }
         }
-
     }
 }
