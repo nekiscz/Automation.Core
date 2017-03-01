@@ -59,6 +59,10 @@ namespace nEkis.Automation.Core
         /// Represents a pseudo-random number generator, a device that produces a sequence of numbers that meet certain statistical requirements for randomness.
         /// </summary>
         public static Random Random { get; set; }
+        /// <summary>
+        /// JavaScript Executor 
+        /// </summary>
+        public static IJavaScriptExecutor JsExecutor { get; set; }
 
         /// <summary>
         /// Creates Driver (Chrome by default) and Event Firing Driver, creates rules for exceptions and events, wait set to 20s by default
@@ -99,6 +103,7 @@ namespace nEkis.Automation.Core
             BaseWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitsec));
             ActionsBuilder = new Actions(Driver);
             Random = new Random();
+            JsExecutor = (IJavaScriptExecutor)Driver;
         }
 
         /// <summary>
