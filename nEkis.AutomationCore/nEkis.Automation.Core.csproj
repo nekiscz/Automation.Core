@@ -76,7 +76,8 @@
     <Compile Include="Utilities\HelperClasses\EnumHelper.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Utilities\HelperClasses\StringHelper.cs" />
-    <Compile Include="Utilities\ScreenCapture.cs" />
+    <Compile Include="Utilities\ScreenCaptureUtilities\ScreenCapture.cs" />
+    <Compile Include="Utilities\ScreenCaptureUtilities\WindowHelpers.cs" />
     <Compile Include="Utilities\Screenshot.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Utilities\Lorem.cs" />
