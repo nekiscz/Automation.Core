@@ -32,8 +32,8 @@ namespace nEkis.Automation.Core.Utilities
         {
             get
             {
-                return Environment.TestPath + string.Format(@ConfigurationManager.AppSettings["screencapturedirectory"],
-                    DateTime.Now.ToString(Environment.DateFormat));
+                return TestEnvironment.TestPath + string.Format(@ConfigurationManager.AppSettings["screencapturedirectory"],
+                    DateTime.Now.ToString(TestEnvironment.DateFormat));
             }
         }
 
@@ -42,8 +42,8 @@ namespace nEkis.Automation.Core.Utilities
             get
             {
                 return string.Format(@ConfigurationManager.AppSettings["screencapturename"],
-                    DateTime.Now.ToString(Environment.DateTimeFormat),
-                    Environment.TestName);
+                    DateTime.Now.ToString(TestEnvironment.DateTimeFormat),
+                    TestEnvironment.TestName);
             }
         }
 

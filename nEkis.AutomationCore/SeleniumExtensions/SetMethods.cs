@@ -420,8 +420,7 @@ namespace nEkis.Automation.Core
         public static IWebElement ScrollElementToView(this IWebElement element)
         {
             string js = string.Format("window.scrollTo({0}, {1})", element.Location.X, element.Location.Y);
-            IJavaScriptExecutor jsExe = (IJavaScriptExecutor)Browser.Driver;
-            jsExe.ExecuteScript(js);
+            Browser.JsExecutor.ExecuteScript(js);
 
             return element;
         }
@@ -435,8 +434,7 @@ namespace nEkis.Automation.Core
         public static IWebElement ScrollElementToView(this IWebElement element, int offset)
         {
             string js = string.Format("window.scrollTo({0}, {1})", element.Location.X, element.Location.Y - offset);
-            IJavaScriptExecutor jsExe = (IJavaScriptExecutor)Browser.Driver;
-            jsExe.ExecuteScript(js);
+            Browser.JsExecutor.ExecuteScript(js);
 
             return element;
         }
@@ -468,8 +466,7 @@ namespace nEkis.Automation.Core
                     break;
             }
 
-            IJavaScriptExecutor jsExe = (IJavaScriptExecutor)Browser.Driver;
-            jsExe.ExecuteScript(js);
+            Browser.JsExecutor.ExecuteScript(js);
 
             return element;
         }

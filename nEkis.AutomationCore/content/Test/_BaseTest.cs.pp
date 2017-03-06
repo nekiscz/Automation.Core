@@ -23,7 +23,7 @@ namespace $rootnamespace$.Tests
         public void AfterTest()
         {
 			Log.EndOfTest();
-			if(Environment.IsTestFailed())
+			if(TestEnvironment.IsTestFailed())
 				Screenshot.TakeScreenshot();
         }
 

@@ -4,6 +4,7 @@
   <appSettings>
     <add key="dateformat" value="yyyyMMdd" />
     <add key="datetimeformat" value="yyyyMMdd-HHmmss" />
+    <add key="readabledateformat" value="dd. MM. yyyy - HH:mm:ss" />
     <!-- Path to directory of logs, {0} represents date in 'dateformat'-->
     <add key="logdirectory" value="\Log\"/>
     <!-- Path to log file, {0} represents current date in 'datetimeformat' format -->

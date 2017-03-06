@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace nEkis.Automation.Core.Utilities
 {
-    class StringHelper
+    /// <summary>
+    /// Methods that can help you when working with strings
+    /// </summary>
+    public class StringHelper
     {
         /// <summary>
         /// Generates random string

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace nEkis.Automation.Core.Utilities
 {
-    class EnumHelper
+    /// <summary>
+    /// Methods that helps you work with enums
+    /// </summary>
+    public class EnumHelper
     {
         /// <summary>
         /// Gets enum value from string
