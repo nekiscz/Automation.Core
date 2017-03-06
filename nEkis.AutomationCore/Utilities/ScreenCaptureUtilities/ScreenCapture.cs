@@ -80,7 +80,7 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         /// <param name="framerate">Framerate of the video</param>
         /// <param name="screenZoom">Zoom of display in percents, used for recording in Driver mode</param>
-        public ScreenCapture(int framerate = 10, int screenZoom = 100)
+        public ScreenCapture(int framerate = 10, double screenZoom = 1.0)
         {
             CaptureArea = EnumHelper.Parse<Area>(ConfigurationManager.AppSettings["screencapturerectangle"]);
 
@@ -161,7 +161,7 @@ namespace nEkis.Automation.Core.Utilities
                 Directory.CreateDirectory(FullPath);
         }
 
-        private void Init(int framerate, int screenZoom = 100)
+        private void Init(int framerate, double screenZoom = 1.0)
         {
             CreateDirectory();
 
@@ -170,19 +170,18 @@ namespace nEkis.Automation.Core.Utilities
             switch (CaptureArea)
             {
                 case Area.Driver:
-                    var rect = WindowHelpers.GetDriverRectangle();
-                    rect.Width = (rect.Width * screenZoom) / 100;
-                    rect.Height = (rect.Height * screenZoom) / 100;
-
-                    RgnProvider = new RegionProvider(rect, null);
-                    Rec = new Recorder(Writer, WinProvider, framerate);
+                    Rect = WindowHelpers.GetDriverRectangle(screenZoom);
+                    RgnProvider = new RegionProvider(Rect, null);
+                    Rec = new Recorder(Writer, RgnProvider, framerate);
                     break;
                 case Area.DriverScreen:
-                    RgnProvider = new RegionProvider(WindowHelpers.GetDriverScreenRectangle(), null);
+                    Rect = WindowHelpers.GetDriverScreenRectangle(screenZoom);
+                    RgnProvider = new RegionProvider(Rect, null);
                     Rec = new Recorder(Writer, RgnProvider, framerate);
                     break;
                 case Area.PrimaryScreen:
-                    RgnProvider = new RegionProvider(WindowHelpers.GetPrimaryScreenRectangle(), null);
+                    Rect = WindowHelpers.GetPrimaryScreenRectangle(screenZoom);
+                    RgnProvider = new RegionProvider(Rect, null);
                     Rec = new Recorder(Writer, RgnProvider, framerate);
                     break;
                 case Area.Rectangle:
@@ -194,7 +193,8 @@ namespace nEkis.Automation.Core.Utilities
                     Rec = new Recorder(Writer, WinProvider, framerate);
                     break;
                 default:
-                    RgnProvider = new RegionProvider(WindowHelpers.GetPrimaryScreenRectangle(), null);
+                    Rect = WindowHelpers.GetPrimaryScreenRectangle(screenZoom);
+                    RgnProvider = new RegionProvider(Rect, null);
                     Rec = new Recorder(Writer, RgnProvider, framerate);
                     break;
             }

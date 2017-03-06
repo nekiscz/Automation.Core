@@ -16,6 +16,6 @@
     <add key="screencapturedirectory" value="\Screencapture\"/>
     <!-- Name of taken video, {0} represents current date in 'datetimeformat' format and {1} represents name of test, has to contain suffix -->
     <add key="screencapturename" value="{1}.{0}.avi" />
-    <add key="screencapturerectangle" value="Rectangle" />   
+    <add key="screencapturerectangle" value="DriverScreen" />   
   </appSettings>
 </configuration>
