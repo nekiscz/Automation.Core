@@ -1,5 +1,4 @@
-﻿using nEkis.Automation.Core;
-using nEkis.Automation.Core.Utilities;
+﻿using $rootnamespace$.Utilities;
 using NUnit.Framework;
 
 namespace $rootnamespace$.Tests
@@ -10,7 +9,8 @@ namespace $rootnamespace$.Tests
         public void BeforeAllTests()
         {
 			Log.StartOfFixture();
-            Browser.CreateDriver(AvailableBrowsers.Chrome);
+            Browser.CreateDriver();
+			TestEnvironment.SelectEnvironment(TestEnvironment.Environment.Stage);
         }
 
         [SetUp]

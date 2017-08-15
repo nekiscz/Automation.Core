@@ -2,6 +2,10 @@
 <configuration>
   <!-- Documentation is available at: https://github.com/nekiscz/Automation.Core/wiki -->
   <appSettings>
+    <add key="stage" value="" />
+    <add key="uat" value="" />
+    <add key="prod" value="" />
+
     <add key="dateformat" value="yyyyMMdd" />
     <add key="datetimeformat" value="yyyyMMdd-HHmmss" />
     <add key="readabledateformat" value="dd. MM. yyyy - HH:mm:ss" />

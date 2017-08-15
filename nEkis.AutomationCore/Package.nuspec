@@ -2,22 +2,38 @@
 <package >
   <metadata>
     <id>nEkis.Automation.Core</id>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
     <authors>nekiscz</authors>
-    <owners>David Nekovář</owners>
+    <owners>David</owners>
     <licenseUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/nekiscz/Automation.Core</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/nekiscz/Automation.Core/master/nekis.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Contains core elements of automation test</description>
-    <releaseNotes>Beta version for testing</releaseNotes>
+    <description>Contains core elements of automation testing framework so i dont have to copy code between different projects</description>
+    <releaseNotes>
+      Changes with dependancies so it is easier to update and downgrate different packages, all classes will be imported into project
+    </releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Automation Selenium NUnit nEkis Core</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.configuration" />
     </frameworkAssemblies>
+    <dependencies>
+      <dependency id="NUnit" version="[3.6.1,)" />
+      <dependency id="Selenium.Firefox.WebDriver" version="[0,)" />
+      <dependency id="Selenium.PhantomJS.WebDriver" version="[2,)" />
+      <dependency id="Selenium.Support" version="[3,)" />
+      <dependency id="Selenium.WebDriver" version="[3,)" />
+      <dependency id="Selenium.WebDriver.ChromeDriver" version="[2,)" />
+      <dependency id="Selenium.WebDriver.IEDriver" version="[3,)" />
+    </dependencies>
   </metadata>
   <files>
+    <file src="readme.txt" target="\" />
+    <file src="content\Framework\*.cs.pp" target="content\Framework\" />
+    <file src="content\Framework\SeleniumExtensions\*.cs.pp" target="content\Framework\SeleniumExtensions\" />
+    <file src="content\Framework\Utilities\*.cs.pp" target="content\Framework\Utilities\" />
+    <file src="content\Framework\Utilities\HelperClasses\*.cs.pp" target="content\Framework\Utilities\HelperClasses\" />
     <file src="content\PageObject\*.cs.pp" target="content\PageObjects\" />
     <file src="content\Test\*.cs.pp" target="content\Tests\" />
     <file src="App.config.transform" target="content\App.config.transform" />

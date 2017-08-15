@@ -1,39 +1,13 @@
-﻿using nEkis.Automation.Core.Utilities;
+﻿using $rootnamespace$.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.PhantomJS;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
 using System;
 
-namespace nEkis.Automation.Core
+namespace $rootnamespace$
 {
-    /// <summary>
-    /// These browsers are available and instaled with Core
-    /// </summary>
-    public enum AvailableBrowsers
-    {
-        /// <summary>
-        /// Chrome driver
-        /// </summary>
-        Chrome,
-        /// <summary>
-        /// Gecko driver
-        /// </summary>
-        Firefox,
-        /// <summary>
-        /// IE driver
-        /// </summary>
-        IE,
-        /// <summary>
-        /// Headless PhantomJS driver
-        /// </summary>
-        PhantomJS
-    }
-
     /// <summary>
     /// Everything connected with driver
     /// </summary>
@@ -54,7 +28,7 @@ namespace nEkis.Automation.Core
         /// <summary>
         /// Wait for driver actions
         /// </summary>
-        public static WebDriverWait BaseWait { get; set; }
+        public static WebDriverWait Wait { get; set; }
         /// <summary>
         /// Represents a pseudo-random number generator, a device that produces a sequence of numbers that meet certain statistical requirements for randomness.
         /// </summary>
@@ -66,29 +40,14 @@ namespace nEkis.Automation.Core
 
         /// <summary>
         /// Creates Driver (Chrome by default) and Event Firing Driver, creates rules for exceptions and events, wait set to 20s by default
-        /// Also populates wait and builder for driver
         /// </summary>
-        /// <param name="browser"></param>
-        /// <param name="waitsec"></param>
-        public static void CreateDriver(AvailableBrowsers browser = AvailableBrowsers.Chrome, int waitsec = 20)
+        /// <param name="waitsec">Timeout setting for WebDriverWait</param>
+        public static void CreateDriver(int waitsec = 20)
         {
-            switch (browser)
-            {
-                case AvailableBrowsers.Chrome:
-                    Driver = new ChromeDriver();
-                    break;
-                case AvailableBrowsers.Firefox:
-                    Driver = new FirefoxDriver();
-                    break;
-                case AvailableBrowsers.IE:
-                    Driver = new InternetExplorerDriver();
-                    break;
-                case AvailableBrowsers.PhantomJS:
-                    Driver = new PhantomJSDriver();
-                    break;
-            }
+            var browser = TestContext.Parameters.Get("Browser", "ch");
+            Driver = CreateBrowser.Create(browser);
 
-            Log.WriteLine("Driver created ({0})", Driver.GetType().Name);
+            Log.WriteLine($"Driver created ({Driver.GetType().Name})");
             Edr = new EventFiringWebDriver(Driver);
             Log.WriteLine("Event firing driver created");
 
@@ -100,69 +59,10 @@ namespace nEkis.Automation.Core
             Driver = Edr;
             Log.WriteLine("Event firing driver added to driver");
 
-            BaseWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitsec));
+            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitsec));
             ActionsBuilder = new Actions(Driver);
             Random = new Random();
             JsExecutor = (IJavaScriptExecutor)Driver;
-        }
-
-        /// <summary>
-        /// Is fired when value of element is changed 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Object representing the element</param>
-        private static void Edr_ElementValueChanged(object sender, WebElementEventArgs e)
-        {
-            try
-            {
-                string text = e.Element.GetText();
-                if (string.IsNullOrEmpty(text))
-                    Log.WriteLine("// Cleared elements value or no text put in: {0}", e.Element.GetAttribute("outerHTML"));
-                else
-                    Log.WriteLine("// Changed value: '{0}' of element '{1}'", text, e.Element.GetAttribute("outerHTML"));
-
-            }
-            catch (Exception ex) when (ex is StaleElementReferenceException || ex is NoSuchElementException)
-            {
-                Log.WriteLine("// Element is no longer present in DOM and can't be logged ({0})", ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Is fired when you click on something
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Object representing the element</param>
-        private static void Edr_ElementClicking(object sender, WebElementEventArgs e)
-        {
-            string elementText = string.Empty;
-
-            if (!string.IsNullOrEmpty(e.Element.GetText()))
-                elementText = e.Element.GetText();
-            else if (!string.IsNullOrEmpty(e.Element.GetAttribute("value")))
-                elementText = e.Element.GetAttribute("value");
-
-            Log.WriteLine("// Clicked on element: '{0}' ({1})", elementText, e.Element.GetAttribute("outerHTML"));
-        }
-
-        /// <summary>
-        /// Is fired when you navigate to some URL
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Object representing the browser</param>
-        private static void Edr_Navigating(object sender, WebDriverNavigationEventArgs e)
-        {
-            Log.WriteLine("// Navigating to URL: " + e.Url);
-        }
-
-        /// <summary>
-        /// Is fired when exeption in test is thrown
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Object representing the browser</param>
-        private static void Edr_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
-        {
-            Log.WriteLine("---- Exception in test, message: " + e.ThrownException.Message);
         }
 
         /// <summary>
@@ -257,7 +157,7 @@ namespace nEkis.Automation.Core
         /// <param name="url">URL to navigate to</param>
         public static void GoToUrl(string url)
         {
-            Driver.Navigate().GoToUrl(url);
+            Driver.Url = $"{TestEnvironment.Url}{url}";
         }
 
         /// <summary>
@@ -309,5 +209,66 @@ namespace nEkis.Automation.Core
         {
             Driver.Manage().Window.Maximize();
         }
+
+        #region EvenFiringDriver
+        /// <summary>
+        /// Is fired when value of element is changed 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Object representing the element</param>
+        private static void Edr_ElementValueChanged(object sender, WebElementEventArgs e)
+        {
+            try
+            {
+                string text = e.Element.GetText();
+                if (string.IsNullOrEmpty(text))
+                    Log.WriteLineIfVerbose($"// Cleared elements value or no text put in: {e.Element.GetAttribute("outerHTML")}");
+                else
+                    Log.WriteLineIfVerbose($"// Changed value: '{text}' of element '{e.Element.GetAttribute("outerHTML")}'");
+
+            }
+            catch (Exception ex) when (ex is StaleElementReferenceException || ex is NoSuchElementException)
+            {
+                Log.WriteLineIfVerbose($"// Element is no longer present in DOM and can't be logged ({ex.Message})");
+            }
+        }
+
+        /// <summary>
+        /// Is fired when you click on something
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Object representing the element</param>
+        private static void Edr_ElementClicking(object sender, WebElementEventArgs e)
+        {
+            string elementText = string.Empty;
+
+            if (!string.IsNullOrEmpty(e.Element.GetText()))
+                elementText = e.Element.GetText();
+            else if (!string.IsNullOrEmpty(e.Element.GetAttribute("value")))
+                elementText = e.Element.GetAttribute("value");
+
+            Log.WriteLine($"// Clicked on element: '{elementText}' ({e.Element.GetAttribute("outerHTML")})");
+        }
+
+        /// <summary>
+        /// Is fired when you navigate to some URL
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Object representing the browser</param>
+        private static void Edr_Navigating(object sender, WebDriverNavigationEventArgs e)
+        {
+            Log.WriteLine($"// Navigating to URL: {e.Url}");
+        }
+
+        /// <summary>
+        /// Is fired when exeption in test is thrown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Object representing the browser</param>
+        private static void Edr_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
+        {
+            Log.WriteLine("! Exception in test, message: " + e.ThrownException.Message);
+        }
+        #endregion
     }
 }

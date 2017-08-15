@@ -1,18 +1,17 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 
-namespace nEkis.Automation.Core.Utilities
+namespace $rootnamespace$.Utilities
 {
     /// <summary>
     /// Allows to log into console and text file
     /// </summary>
     public class Log
     {
+        private static bool Verbose { get; set; }
         /// <summary>
         /// Listner for console
         /// </summary>
@@ -21,6 +20,10 @@ namespace nEkis.Automation.Core.Utilities
         /// Listner for txt file
         /// </summary>
         private static TextWriterTraceListener twtl { get; set; }
+        /// <summary>
+        /// Default listener for VS console
+        /// </summary>
+		private static DefaultTraceListener dtl { get; set; }
 
         /// <summary>
         /// Fullpath to log file
@@ -31,6 +34,9 @@ namespace nEkis.Automation.Core.Utilities
 
         static Log()
         {
+            var verbose = TestContext.Parameters.Get("Verbose", "1");
+            if (verbose == "0")
+                Verbose = false;
 
             Trace.Listeners.Clear();
 
@@ -46,7 +52,12 @@ namespace nEkis.Automation.Core.Utilities
 
             twtl = new TextWriterTraceListener(LogPath);
             ctl = new ConsoleTraceListener(false);
+			dtl = new DefaultTraceListener();
 
+			Debug.AutoFlush = true;
+            Debug.Listeners.Add(dtl);
+
+			Trace.AutoFlush = true;
             Trace.Listeners.Add(twtl);
             Trace.Listeners.Add(ctl);
         }
@@ -68,8 +79,8 @@ namespace nEkis.Automation.Core.Utilities
             startTime = DateTime.Now;
             WriteLine("----------------------------------------------------------------------------------------------------------");
             WriteLine("TESTING STARTED");
-            WriteLine("Local date and time: " + startTime.ToString(TestEnvironment.ReadableDateTimeFormat));
-            WriteLine("Test directory: " + TestEnvironment.TestPath);
+            WriteLine($"Local date and time: {startTime.ToString(TestEnvironment.ReadableDateTimeFormat)}");
+            WriteLine($"Test directory: {TestEnvironment.TestPath}");
             WriteLine("----------------------------------------------------------------------------------------------------------");
         }
 
@@ -82,9 +93,9 @@ namespace nEkis.Automation.Core.Utilities
             TimeSpan duration = endTime - startTime;
 
             WriteLine("----------------------------------------------------------------------------------------------------------");
-            WriteLine("Local time: " + endTime.ToString(TestEnvironment.ReadableDateTimeFormat));
-            WriteLine("Testing took: " + duration.ToString("c") + " (" + duration.TotalSeconds + "s)");
-            WriteLine("Number of failed tests: " + TestEnvironment.FailCount.ToString());
+            WriteLine($"Local time: {endTime.ToString(TestEnvironment.ReadableDateTimeFormat)}");
+            WriteLine($"Testing took: {duration.ToString("c")} ({duration.TotalSeconds}s)");
+            WriteLine($"Number of failed tests: {TestEnvironment.FailCount.ToString()}");
 
             if (TestEnvironment.FailedTests.Count > 0)
             {
@@ -92,7 +103,7 @@ namespace nEkis.Automation.Core.Utilities
 
                 foreach (var test in TestEnvironment.FailedTests)
                 {
-                    WriteLine("\t{0}", test);
+                    WriteLine($"\t{test}");
                 }
             }
 
@@ -104,7 +115,7 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         public static void StartOfTest()
         {
-            WriteLine("START [{0}] - {1}", new object[] { TestEnvironment.TestName, DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat) });
+            WriteLine($"START [{TestEnvironment.TestName}] - {DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat)}");
             for (int i = 0; i < 3; i++)
             {
 
@@ -121,18 +132,37 @@ namespace nEkis.Automation.Core.Utilities
             {
                 WriteLine(".");
             }
-            WriteLine("END - Test {0} - {1}", new object[] { TestEnvironment.TestName, DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat) });
+            WriteLine($"END - Test {TestEnvironment.TestName} - {DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat)}");
             if (TestEnvironment.IsFailed)
-                WriteLine("Error message: {0}\r\n", TestContext.CurrentContext.Result.Message);
+                WriteLine($"Error message: {TestContext.CurrentContext.Result.Message}\r\n");
         }
 
         /// <summary>
         /// Writes line of text into added listners
         /// </summary>
+        /// <param name="s">Text to write</param>
         public static void WriteLine(string s)
         {
             Trace.WriteLine(s);
-            Trace.Flush();
+        }
+
+        /// <summary>
+        /// Writes line if Verbose is set as true
+        /// <para /> By default is Verbose set to true, you can change this from comand line as --params:Verbose=0
+        /// </summary>
+        /// <param name="s">Text to write</param>
+        public static void WriteLineIfVerbose(string s)
+        {
+            Trace.WriteLineIf(Verbose, s);
+        }
+
+		/// <summary>
+        /// Writes line into debug tracers
+        /// </summary>
+        /// <param name="s">Text to write into debug tracers</param>
+		public static void PrintLine(string s)
+        {
+            Debug.WriteLine(s);
         }
 
         /// <summary>
@@ -140,6 +170,7 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         /// <param name="text">Unformated text</param>
         /// <param name="arg">Argument to be formated with text</param>
+        [System.Obsolete("Use method WriteLine with $\"{method}\" connotation")]
         public static void WriteLine(string text, object arg)
         {
             WriteLine(string.Format(text, arg));
@@ -150,6 +181,7 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         /// <param name="text">Unformated text</param>
         /// <param name="arg">Array of arguments to be formated with text</param>
+        [System.Obsolete("Use method WriteLine with $\"{method}\" connotation")]
         public static void WriteLine(string text, params object[] arg)
         {
             WriteLine(string.Format(text, arg));

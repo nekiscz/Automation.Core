@@ -1,19 +1,33 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace nEkis.Automation.Core
+namespace $rootnamespace$
 {
     /// <summary>
     /// Context of environment and test
     /// </summary>
     public class TestEnvironment
     {
+        /// <summary>
+        /// Test environments
+        /// </summary>
+        public enum Environment
+        {
+            /// <summary>
+            /// Stage environment
+            /// </summary>
+            Stage,
+            /// <summary>
+            /// UAT environment
+            /// </summary>
+            Uat,
+            /// <summary>
+            /// Production environment
+            /// </summary>
+            Prod
+        }
         /// <summary>
         /// Gets directory to tests (usualy same as dll directory)
         /// </summary>
@@ -46,6 +60,10 @@ namespace nEkis.Automation.Core
         /// Holds universal string representing readable form of date format
         /// </summary>
         public static string ReadableDateTimeFormat { get; set; }
+        /// <summary>
+        /// Base url of test environment
+        /// </summary>
+        public static string Url { get; set; }
 
         static TestEnvironment()
         {
@@ -53,6 +71,26 @@ namespace nEkis.Automation.Core
             DateTimeFormat = ConfigurationManager.AppSettings["datetimeformat"];
             DateFormat = ConfigurationManager.AppSettings["dateformat"];
             ReadableDateTimeFormat = ConfigurationManager.AppSettings["readabledateformat"];
+        }
+
+        /// <summary>
+        /// Sets Url variable for future navigation
+        /// </summary>
+        /// <param name="env">Current test environment</param>
+        public static void SelectEnvironment(Environment env)
+        {
+            switch (env)
+            {
+                case Environment.Stage:
+                    Url = ConfigurationManager.AppSettings["stage"];
+                    break;
+                case Environment.Uat:
+                    Url = ConfigurationManager.AppSettings["url"];
+                    break;
+                case Environment.Prod:
+                    Url = ConfigurationManager.AppSettings["prod"];
+                    break;
+            }
         }
 
         /// <summary>
