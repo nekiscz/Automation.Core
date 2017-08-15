@@ -44,6 +44,10 @@ namespace nEkis.Automation.Core
         /// </summary>
         public static IWebDriver Driver { get; set; }
         /// <summary>
+        /// Name of current browser
+        /// </summary>
+        public static AvailableBrowsers DriverName { get; set; }
+        /// <summary>
         /// Event firing extention of driver
         /// </summary>
         private static EventFiringWebDriver Edr { get; set; }
@@ -72,6 +76,8 @@ namespace nEkis.Automation.Core
         /// <param name="waitsec"></param>
         public static void CreateDriver(AvailableBrowsers browser = AvailableBrowsers.Chrome, int waitsec = 20)
         {
+            DriverName = browser;
+
             switch (browser)
             {
                 case AvailableBrowsers.Chrome:

@@ -69,7 +69,7 @@ namespace nEkis.Automation.Core.Utilities
         /// <summary>
         /// Rectangle to capture by default set to rectangle of 1920x1080px without offset
         /// </summary>
-        public static Rectangle Rect { get; set; } = new Rectangle(0, 0, 1920, 1080);
+        public static Rectangle Rect { get; set; }
         /// <summary>
         /// Window to capture
         /// </summary>
@@ -102,14 +102,15 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         /// <param name="window">Window to be captured</param>
         /// <param name="framerate">Framerate of video</param>
-        public ScreenCapture(Window window, int framerate = 10)
+        /// <param name="screenZoom">Zoom of screen set in windows</param>
+        public ScreenCapture(Window window, int framerate = 10, double screenZoom = 1)
         {
             CaptureArea = Area.Window;
 
             Log.WriteLine("Screen capture area 'Window' forced, provided object {0}", window.ToString());
 
             Win = window;
-            Init(framerate);
+            Init(framerate, screenZoom);
         }
 
         /// <summary>
@@ -117,14 +118,15 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         /// <param name="rectangle">Rectangle to be captured</param>
         /// <param name="framerate">Framerate of video</param>
-        public ScreenCapture(Rectangle rectangle, int framerate = 10)
+        /// <param name="screenZoom">Zoom of screen set in windows</param>
+        public ScreenCapture(Rectangle rectangle, int framerate = 10, double screenZoom = 1)
         {
             CaptureArea = Area.Rectangle;
 
             Log.WriteLine("Screen capture area 'Rectangle' forced, provided object {0}", rectangle.ToString());
 
             Rect = rectangle;
-            Init(framerate);
+            Init(framerate, screenZoom);
         }
 
         /// <summary>
@@ -161,7 +163,7 @@ namespace nEkis.Automation.Core.Utilities
                 Directory.CreateDirectory(FullPath);
         }
 
-        private void Init(int framerate, double screenZoom = 1.0)
+        private void Init(int framerate, double screenZoom)
         {
             CreateDirectory();
 
