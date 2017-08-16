@@ -93,7 +93,7 @@
     <Content Include="Framework\Console\nunit.engine.api.xml" />
     <Content Include="Framework\Console\nunit.engine.dll" />
     <Content Include="Framework\Console\nunit3-console.exe" />
-    <Content Include="Framework\Console\README.txt" />
+    <Content Include="Framework\Console\readme.txt" />
     <None Include="content\Framework\Console\runall.bat.pp" />
     <Content Include="readme.txt" />
   </ItemGroup>

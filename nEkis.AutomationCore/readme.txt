@@ -1,13 +1,15 @@
 ﻿Hi there!
 
-This package holds most useful code that I use in my automation. Feel free to use it or its parts. 
-But first follow these steps to make everything work as intended.
+This package holds most useful code that I use in my automation. Feel free to use 
+it or its parts. But first follow these steps to make everything work as intended.
 
 #1 - Check App.config to set everything as you want
 #2 - Update nuget packages, so it has versions you want
 #3 - Build it so you know there are no problems with nuget versions
 #4 - Run the testing test and if browser will popup IT'S ALIVE!
-#5 - GL HF
+#5 - Set Framework/Console/* files as "copy if new"
+#6 - Run the runall.bat (if Class Library)
+#7 - GL HF
 
 P.S.: Yeah i know it's kinda mess.
 
