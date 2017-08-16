@@ -57,6 +57,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="content\Framework\Console\nunit-agent-x86.exe.config" />
+    <None Include="content\Framework\Console\nunit-agent.exe.config" />
+    <None Include="content\Framework\Console\nunit.nuget.addins" />
+    <None Include="content\Framework\Console\nunit3-console.exe.config" />
     <None Include="content\PageObject\_BasePage.cs.pp" />
     <None Include="content\Test\Testing.Tests.cs.pp" />
     <None Include="content\Test\_BaseTest.cs.pp" />
@@ -82,6 +86,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Framework\Console\Mono.Cecil.dll" />
+    <Content Include="Framework\Console\nunit-agent-x86.exe" />
+    <Content Include="Framework\Console\nunit-agent.exe" />
+    <Content Include="Framework\Console\nunit.engine.api.dll" />
+    <Content Include="Framework\Console\nunit.engine.api.xml" />
+    <Content Include="Framework\Console\nunit.engine.dll" />
+    <Content Include="Framework\Console\nunit3-console.exe" />
+    <Content Include="Framework\Console\README.txt" />
+    <None Include="content\Framework\Console\runall.bat.pp" />
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup />

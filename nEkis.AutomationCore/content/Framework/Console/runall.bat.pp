@@ -1,0 +1,1 @@
+﻿"%~dp0nunit3-console.exe" --params:Browser=chrome "%~dp0..\..\{dllname}.dll"
