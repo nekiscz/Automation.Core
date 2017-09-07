@@ -42,9 +42,13 @@ namespace $rootnamespace$.Utilities
 
             LogPath = TestEnvironment.TestPath + string.Format(@ConfigurationManager.AppSettings["logdirectory"],
                 DateTime.Now.ToString(TestEnvironment.DateFormat));
+			var reportPath = TestEnvironment.TestPath + @ConfigurationManager.AppSettings["reportdirectory"];
 
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);
+
+			if (!Directory.Exists(reportPath))
+                Directory.CreateDirectory(reportPath);
 
             var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString(TestEnvironment.DateTimeFormat));
 

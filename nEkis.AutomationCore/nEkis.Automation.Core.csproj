@@ -72,6 +72,7 @@
     <None Include="content\Framework\Utilities\Screenshot.cs.pp" />
     <None Include="content\Framework\Utilities\Log.cs.pp" />
     <None Include="content\Framework\Utilities\Lorem.cs.pp" />
+    <None Include="content\Framework\SeleniumExtensions\WaitMethods.cs.pp" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="content\Framework\SeleniumExtensions\GetMethods.cs.pp" />
     <None Include="content\Framework\SeleniumExtensions\SetMethods.cs.pp" />
@@ -93,6 +94,7 @@
     <Content Include="Framework\Console\nunit.engine.api.xml" />
     <Content Include="Framework\Console\nunit.engine.dll" />
     <Content Include="Framework\Console\nunit3-console.exe" />
+    <Content Include="Framework\Console\NUnitOrange.exe" />
     <Content Include="Framework\Console\readme.txt" />
     <None Include="content\Framework\Console\runall.bat.pp" />
     <Content Include="readme.txt" />
