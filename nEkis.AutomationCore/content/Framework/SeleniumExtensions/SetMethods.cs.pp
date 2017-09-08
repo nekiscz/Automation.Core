@@ -127,7 +127,7 @@ namespace $rootnamespace$
         /// <param name="elements">Any HTML elements</param>
         public static void ClickRandomElement(this IList<IWebElement> elements)
         {
-            IWebElement element = elements[Browser.Random.Next(0, elements.Count)];
+            IWebElement element = elements[Browser.Random.Next(elements.Count)];
             element.ClickElement();
         }
 
@@ -138,7 +138,7 @@ namespace $rootnamespace$
         /// <param name="max">Maximum position of element in list (exclusive)</param>
         public static void ClickRandomElement(this IList<IWebElement> elements, int max)
         {
-            IWebElement element = elements[Browser.Random.Next(0, elements.Count - max)];
+            IWebElement element = elements[Browser.Random.Next(elements.Count - max)];
             element.WaitTillClickable().Click();
         }
 
@@ -162,7 +162,7 @@ namespace $rootnamespace$
         {
             foreach (var item in elements)
             {
-                if (Browser.Random.Next(0, 100) % 2 == 0)
+                if (Browser.Random.Next(100) % 2 == 0)
                     item.ClickElement();
             }
         }
@@ -192,7 +192,7 @@ namespace $rootnamespace$
         public static void SelectRandomElement(this IWebElement element)
         {
             element.WaitTillOptionsPresent();
-            new SelectElement(element).SelectByIndex(Browser.Random.Next(1, element.FindElements(By.TagName("option")).Count));
+            new SelectElement(element).SelectByIndex(Browser.Random.Next(element.FindElements(By.TagName("option")).Count));
         }
 
         /// <summary>

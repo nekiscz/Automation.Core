@@ -21,7 +21,7 @@ namespace $rootnamespace$.Utilities
         public static string Word()
         {
             string[] words = lorem.Replace(".", "").Replace(",", "").Split(' ');
-            return words[Browser.Random.Next(0, words.Count())];
+            return words[Browser.Random.Next(words.Count())];
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace $rootnamespace$.Utilities
         public static string Word(int length)
         {
             string[] words = lorem.Replace(".", "").Replace(",", "").Split(' ').Where(r => r.Length >= length).ToArray();
-            return words[Browser.Random.Next(0, words.Count())];
+            return words[Browser.Random.Next(words.Count())];
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace $rootnamespace$.Utilities
         public static string Sentence()
         {
             string[] sentence = lorem.Replace(". ", ".").Split('.');
-            return sentence[Browser.Random.Next(0, sentence.Count())];
+            return sentence[Browser.Random.Next(sentence.Count())];
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace $rootnamespace$.Utilities
 
             for (int i = 0; i < sentences; i++)
             {
-                paragraph += sentence[Browser.Random.Next(0, sentence.Count())] + ". ";
+                paragraph += sentence[Browser.Random.Next(sentence.Count())] + ". ";
             }
 
             return paragraph;
@@ -70,7 +70,7 @@ namespace $rootnamespace$.Utilities
         public static string RandomPeriod()
         {
             string[] period = { "denně", "týdně", "měsíčně", "ročně" };
-            return period[Browser.Random.Next(0, period.Count())];
+            return period[Browser.Random.Next(period.Count())];
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace $rootnamespace$.Utilities
             string[] name = { "David ", "Jan ", "Jiří ", "Petr ", "Igor ", "Michal ", "Miroslav " };
             string[] surname = { "Novák", "Svoboda", "Novotný", "Dvořák", "Černý", "Veselý", "Procházka" };
 
-            return title[Browser.Random.Next(0, title.Count())] + name[Browser.Random.Next(0, name.Count())] + surname[Browser.Random.Next(0, surname.Count())];
+            return title[Browser.Random.Next(title.Count())] + name[Browser.Random.Next(name.Count())] + surname[Browser.Random.Next(surname.Count())];
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using $rootnamespace$.Utilities;
+using nEkis.Automation.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -61,7 +62,7 @@ namespace $rootnamespace$
 
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(waitsec));
             ActionsBuilder = new Actions(Driver);
-            Random = new Random();
+            Random = new RandomGenerator();
             JsExecutor = (IJavaScriptExecutor)Driver;
         }
 
