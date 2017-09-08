@@ -68,17 +68,27 @@
     <None Include="content\Framework\Browser.cs.pp" />
     <None Include="content\Framework\Utilities\HelperClasses\EnumHelper.cs.pp" />
     <None Include="content\Framework\TestEnvironment.cs.pp" />
+    <Compile Include="Framework\Exceptions\ConfigurationExceptions.cs" />
+    <Compile Include="Framework\Objects\BaseUrl.cs" />
+    <Compile Include="Framework\Objects\LogFile.cs" />
+    <Compile Include="Framework\Settings\DateFormatSettings.cs" />
+    <Compile Include="Framework\Settings\EnvironmentSettings.cs" />
     <None Include="content\Framework\Utilities\HelperClasses\StringHelper.cs.pp" />
     <None Include="content\Framework\Utilities\Screenshot.cs.pp" />
     <None Include="content\Framework\Utilities\Log.cs.pp" />
     <None Include="content\Framework\Utilities\Lorem.cs.pp" />
     <None Include="content\Framework\SeleniumExtensions\WaitMethods.cs.pp" />
+    <Compile Include="Framework\Configuration\EnviromentConfig.cs" />
+    <Compile Include="Framework\Configuration\LogConfig.cs" />
+    <Compile Include="Framework\Settings\LogSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="content\Framework\SeleniumExtensions\GetMethods.cs.pp" />
     <None Include="content\Framework\SeleniumExtensions\SetMethods.cs.pp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config.transform" />
+    <None Include="App.config.transform">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Package.nuspec">
       <SubType>Designer</SubType>
     </None>

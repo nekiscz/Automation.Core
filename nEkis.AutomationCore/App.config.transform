@@ -1,22 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <!-- Documentation is available at: https://github.com/nekiscz/Automation.Core/wiki -->
-  <appSettings>
-    <add key="stage" value="" />
-    <add key="uat" value="" />
-    <add key="prod" value="" />
+  <configSections>
+    <section name="environmentSettings" type="nEkis.Automation.Core.Framework.Configuration.EnvironmentConfig, nEkis.Automation.Core" />
+    <section name="logSettings" type="nEkis.Automation.Core.Framework.Configuration.LogConfig, nEkis.Automation.Core" />
+  </configSections>
 
-    <add key="dateformat" value="yyyyMMdd" />
-    <add key="datetimeformat" value="yyyyMMdd-HHmmss" />
-    <add key="readabledateformat" value="dd. MM. yyyy - HH:mm:ss" />
-    <add key="reportdirectory" value="\Report\" />
-    <!-- Path to directory of logs, {0} represents date in 'dateformat'-->
-    <add key="logdirectory" value="\Log\"/>
-    <!-- Path to log file, {0} represents current date in 'datetimeformat' format -->
-    <add key="logname" value="testlog.{0}.txt"/>
-    <!-- Path to directory of logs, {0} represents date in 'dateformat'-->
-    <add key="screenshotdirectory" value="\Screenshots\" />
-    <!-- Name of taken screenshot, {0} represents current date in 'datetimeformat' format and {1} represents name of test, has to contain suffix -->
-    <add key="screenshotname" value="{1}.{0}.png" />
-  </appSettings>
+  <environmentSettings>
+    <environments>
+      <add key="stage" url="https://start.duckduckgo.com/" user="UserName" password="secretPassword" />
+      <add key="uat" url="https://start.duckduckgo.com/" user="UserName" password="secretPassword" />
+    </environments>
+    <authenticate value="true" />
+  </environmentSettings>
+
+  <logSettings>
+    <dateFormats>
+      <shortDate value="" />
+      <shortDateTime value="" />
+      <readableDate value="" />
+      <readableDateTime value="" />
+    </dateFormats>
+
+    <reportDirectory path="\Report\" create="true" />
+    <logDirectory path="\Log\" name="testlog.{0}.txt" create="true" />
+    <screenShotDirectory path="\Screenshots\" name="{1}.{0}.png" create="true" />
+  </logSettings>
 </configuration>
