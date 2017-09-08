@@ -127,7 +127,7 @@ namespace $rootnamespace$
         /// <param name="elements">Any HTML elements</param>
         public static void ClickRandomElement(this IList<IWebElement> elements)
         {
-            IWebElement element = elements[Browser.Random.Next(0, elements.Count - 1)];
+            IWebElement element = elements[Browser.Random.Next(0, elements.Count)];
             element.ClickElement();
         }
 
@@ -135,10 +135,10 @@ namespace $rootnamespace$
         /// Clicks on random element in list with maximum position 
         /// </summary>
         /// <param name="elements">Any HTML elements</param>
-        /// <param name="max">Maximum position of element in list</param>
+        /// <param name="max">Maximum position of element in list (exclusive)</param>
         public static void ClickRandomElement(this IList<IWebElement> elements, int max)
         {
-            IWebElement element = elements[Browser.Random.Next(0, elements.Count - (1 + max))];
+            IWebElement element = elements[Browser.Random.Next(0, elements.Count - max)];
             element.WaitTillClickable().Click();
         }
 
@@ -146,8 +146,8 @@ namespace $rootnamespace$
         /// Clicks on random element in list with minimum and maximum position in list
         /// </summary>
         /// <param name="elements">Any HTML elements</param>
-        /// <param name="min">Minimum position of element in list</param>
-        /// <param name="max">Maximum position of element in list</param>
+        /// <param name="min">Minimum position of element in list (inclusive)</param>
+        /// <param name="max">Maximum position of element in list (exclusive)</param>
         public static void ClickRandomElement(this IList<IWebElement> elements, int min, int max)
         {
             IWebElement element = elements[Browser.Random.Next(min, max)];
@@ -192,15 +192,15 @@ namespace $rootnamespace$
         public static void SelectRandomElement(this IWebElement element)
         {
             element.WaitTillOptionsPresent();
-            new SelectElement(element).SelectByIndex(Browser.Random.Next(1, element.FindElements(By.TagName("option")).Count - 1));
+            new SelectElement(element).SelectByIndex(Browser.Random.Next(1, element.FindElements(By.TagName("option")).Count));
         }
 
         /// <summary>
         /// Selects random element in selectbox by index within limit in selectbox
         /// </summary>
         /// <param name="element">Select element</param>
-        /// <param name="min">Minimum index of element</param>
-        /// <param name="max">Maximum index of element</param>
+        /// <param name="min">Minimum index of element (inclusive)</param>
+        /// <param name="max">Maximum index of element (exclusive)</param>
         public static void SelectRandomElement(this IWebElement element, int min, int max)
         {
             element.WaitTillOptionsPresent();
@@ -239,8 +239,8 @@ namespace $rootnamespace$
         /// Clears element and enters short date within given limit
         /// </summary>
         /// <param name="element">Inputs or other clearable element</param>
-        /// <param name="minDays">Minimum limit to change date</param>
-        /// <param name="maxDays">Maximum limit to change date</param>
+        /// <param name="minDays">Minimum limit to change date (inclusive)</param>
+        /// <param name="maxDays">Maximum limit to change date (exclusive)</param>
         public static void EnterRandomDate(this IWebElement element, int minDays, int maxDays)
         {
             element.EnterText(DateTime.Today.AddDays(Browser.Random.Next(minDays, maxDays)).ToShortDateString());
@@ -250,8 +250,8 @@ namespace $rootnamespace$
         /// Enters date within given limit
         /// </summary>
         /// <param name="element">Inputs or other clearable element</param>
-        /// <param name="minDays">Minimum limit to change date, if zero date can be today</param>
-        /// <param name="maxDays">Maximum limit to change date</param>
+        /// <param name="minDays">Minimum limit to change date (inclusive)</param>
+        /// <param name="maxDays">Maximum limit to change date (exclusive)</param>
         /// <param name="clear">Should be element cleared before entering the date?</param>
         public static void EnterRandomDate(this IWebElement element, int minDays, int maxDays, bool clear)
         {

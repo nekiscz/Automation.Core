@@ -70,7 +70,7 @@ namespace $rootnamespace$.Utilities
         public static string RandomPeriod()
         {
             string[] period = { "denně", "týdně", "měsíčně", "ročně" };
-            return period[Browser.Random.Next(0, period.Count() - 1)];
+            return period[Browser.Random.Next(0, period.Count())];
         }
 
         /// <summary>
@@ -83,15 +83,15 @@ namespace $rootnamespace$.Utilities
             string[] name = { "David ", "Jan ", "Jiří ", "Petr ", "Igor ", "Michal ", "Miroslav " };
             string[] surname = { "Novák", "Svoboda", "Novotný", "Dvořák", "Černý", "Veselý", "Procházka" };
 
-            return title[Browser.Random.Next(0, title.Count() - 1)] + name[Browser.Random.Next(0, name.Count() - 1)] + surname[Browser.Random.Next(0, surname.Count() - 1)];
+            return title[Browser.Random.Next(0, title.Count())] + name[Browser.Random.Next(0, name.Count())] + surname[Browser.Random.Next(0, surname.Count())];
 
         }
 
         /// <summary>
         /// Returns random nuber in given borders
         /// </summary>
-        /// <param name="min">Minimum random number</param>
-        /// <param name="max">Maximum random number</param>
+        /// <param name="min">Minimum random number (inclusive)</param>
+        /// <param name="max">Maximum random number (exclusive)</param>
         /// <returns>Random number</returns>
         public static int RandomNumber(int min, int max)
         {
