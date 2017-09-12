@@ -81,6 +81,7 @@
     <Compile Include="Framework\Configuration\EnviromentConfig.cs" />
     <Compile Include="Framework\Configuration\LogConfig.cs" />
     <Compile Include="Framework\Settings\LogSettings.cs" />
+    <Compile Include="Framework\RandomGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="content\Framework\SeleniumExtensions\GetMethods.cs.pp" />
     <None Include="content\Framework\SeleniumExtensions\SetMethods.cs.pp" />
