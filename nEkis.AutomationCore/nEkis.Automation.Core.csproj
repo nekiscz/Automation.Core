@@ -73,7 +73,7 @@
     <None Include="content\Framework\Utilities\Log.cs.pp" />
     <None Include="content\Framework\Utilities\Lorem.cs.pp" />
     <None Include="content\Framework\SeleniumExtensions\WaitMethods.cs.pp" />
-    <Compile Include="Framework\SecureRandom.cs" />
+    <Compile Include="Framework\RandomGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="content\Framework\SeleniumExtensions\GetMethods.cs.pp" />
     <None Include="content\Framework\SeleniumExtensions\SetMethods.cs.pp" />
