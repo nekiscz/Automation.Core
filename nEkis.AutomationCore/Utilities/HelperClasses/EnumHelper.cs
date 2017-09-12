@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace $rootnamespace$.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     /// <summary>
     /// Changes and halps while working with enums

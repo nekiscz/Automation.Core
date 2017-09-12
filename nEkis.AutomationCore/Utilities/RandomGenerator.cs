@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace nEkis.Automation.Core
+namespace nEkis.Automation.Core.Utilities
 {
     /// <summary>
     /// Overrides .Next() methods of System.Random class

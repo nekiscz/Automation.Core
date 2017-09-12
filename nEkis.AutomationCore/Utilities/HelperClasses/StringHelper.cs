@@ -2,12 +2,12 @@
 using System.Globalization;
 using System.Text;
 
-namespace $rootnamespace$.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     /// <summary>
     /// Changes and does operations with strings
     /// </summary>
-    public class StringHelper
+    public static class StringHelper
     {
         /// <summary>
         /// Generates random string
@@ -21,7 +21,7 @@ namespace $rootnamespace$.Utilities
 
             for (int i = 0; i < size; i++)
             {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Browser.Random.NextDouble() + 65)));
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * new RandomGenerator().NextDouble() + 65)));
                 builder.Append(ch);
             }
 

@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace $rootnamespace$.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     /// <summary>
     /// Allows to log into console and text file

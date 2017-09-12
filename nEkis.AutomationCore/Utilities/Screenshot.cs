@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using System;
 using System.IO;
 
-namespace $rootnamespace$.Utilities
+namespace nEkis.Automation.Core.Utilities
 {
     /// <summary>
     /// Allows to take screenshots

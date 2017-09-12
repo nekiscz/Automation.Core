@@ -1,12 +1,12 @@
-﻿using $rootnamespace$.Utilities;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
 using NUnit.Framework;
+using nEkis.Automation.Core.Utilities;
 
-namespace $rootnamespace$
+namespace nEkis.Automation.Core
 {
     /// <summary>
     /// 
