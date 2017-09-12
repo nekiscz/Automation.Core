@@ -29,17 +29,19 @@ namespace nEkis.Automation.Core.Settings
         /// <returns>Base url object</returns>
         public static BaseUrl GetUrl(string key)
         {
+            string errorMessage = $"Environment with this key '{key}' doesn't exist, or isn't saved correctly in configuration file.";
+
             try
             {
                 var environment = EnvironmentConfig.Settings.Environments[key];
                 if (environment == null)
-                    throw new UnknownConfiguration($"Environment with this key '{key}' doesn't exist, or isn't saved correctly in configuration file.");
+                    throw new UnknownConfiguration(errorMessage);
 
                 return new BaseUrl(environment);
             }
             catch (System.Exception e)
             {
-                throw new UnknownConfiguration($"Environment with this key '{key}' doesn't exist, or isn't saved correctly in configuration file.", e);
+                throw new UnknownConfiguration(errorMessage, e);
             }
         }
     }

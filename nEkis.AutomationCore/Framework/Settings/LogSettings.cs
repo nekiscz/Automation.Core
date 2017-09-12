@@ -10,14 +10,14 @@ namespace nEkis.Automation.Core.Settings
         /// <summary>
         /// Log config settings
         /// </summary>
-        public LogFile Log { get { return new LogFile(LogFile.LogFileType.Log); } }
+        public static LogFile Log { get { return new LogFile(LogFile.LogFileType.Log); } }
         /// <summary>
         /// Report config settings
         /// </summary>
-        public LogFile Report { get { return new LogFile(LogFile.LogFileType.Report); } }
+        public static LogFile Report { get { return new LogFile(LogFile.LogFileType.Report); } }
         /// <summary>
         /// Screenshot config settings
         /// </summary>
-        public LogFile ScreenShot { get { return new LogFile(LogFile.LogFileType.ScreenShot); } }
+        public static LogFile ScreenShot { get { return new LogFile(LogFile.LogFileType.ScreenShot); } }
     }
 }

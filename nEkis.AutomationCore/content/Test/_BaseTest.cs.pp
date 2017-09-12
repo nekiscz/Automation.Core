@@ -9,8 +9,8 @@ namespace $rootnamespace$.Tests
         public void BeforeAllTests()
         {
 			Log.StartOfFixture();
-            Browser.CreateDriver();
-			TestEnvironment.SelectEnvironment(TestEnvironment.Environment.Stage);
+			Browser.CreateDriver();
+			TestEnvironment.SelectEnvironment(TestEnvironment.Environment.stage);
         }
 
         [SetUp]

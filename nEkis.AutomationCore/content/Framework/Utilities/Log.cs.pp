@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using nEkis.Automation.Core.Settings;
+using NUnit.Framework;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 
@@ -29,6 +29,8 @@ namespace $rootnamespace$.Utilities
         /// Fullpath to log file
         /// </summary>
         private static string LogPath { get; set; }
+        private static string LogFullName { get; set; }
+        private static string ReportPath { get; set; }
 
         private static DateTime startTime;
 
@@ -40,21 +42,21 @@ namespace $rootnamespace$.Utilities
 
             Trace.Listeners.Clear();
 
-            LogPath = TestEnvironment.TestPath + string.Format(@ConfigurationManager.AppSettings["logdirectory"],
-                DateTime.Now.ToString(TestEnvironment.DateFormat));
-			var reportPath = TestEnvironment.TestPath + @ConfigurationManager.AppSettings["reportdirectory"];
+            LogPath = TestEnvironment.TestPath + string.Format(LogSettings.Log.Path,
+                DateTime.Now.ToString(DateFormatSettings.ShortDate));
+			ReportPath = TestEnvironment.TestPath + string.Format(LogSettings.Report.Path,
+                DateTime.Now.ToString(DateFormatSettings.ShortDate));
 
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);
 
-			if (!Directory.Exists(reportPath))
-                Directory.CreateDirectory(reportPath);
+			LogFullName = TestEnvironment.TestPath + string.Format(LogSettings.Log.FullName,
+                DateTime.Now.ToString(DateFormatSettings.ShortDate));
 
-            var logName = string.Format(ConfigurationManager.AppSettings["logname"], DateTime.Now.ToString(TestEnvironment.DateTimeFormat));
+			if (!Directory.Exists(ReportPath))
+                Directory.CreateDirectory(ReportPath);
 
-            LogPath = LogPath + logName;
-
-            twtl = new TextWriterTraceListener(LogPath);
+            twtl = new TextWriterTraceListener(LogFullName);
             ctl = new ConsoleTraceListener(false);
 			dtl = new DefaultTraceListener();
 
@@ -83,7 +85,7 @@ namespace $rootnamespace$.Utilities
             startTime = DateTime.Now;
             WriteLine("----------------------------------------------------------------------------------------------------------");
             WriteLine("TESTING STARTED");
-            WriteLine($"Local date and time: {startTime.ToString(TestEnvironment.ReadableDateTimeFormat)}");
+            WriteLine($"Local date and time: {startTime.ToString(DateFormatSettings.ReadableDateTime)}");
             WriteLine($"Test directory: {TestEnvironment.TestPath}");
             WriteLine("----------------------------------------------------------------------------------------------------------");
         }
@@ -97,7 +99,7 @@ namespace $rootnamespace$.Utilities
             TimeSpan duration = endTime - startTime;
 
             WriteLine("----------------------------------------------------------------------------------------------------------");
-            WriteLine($"Local time: {endTime.ToString(TestEnvironment.ReadableDateTimeFormat)}");
+            WriteLine($"Local time: {endTime.ToString(DateFormatSettings.ReadableDateTime)}");
             WriteLine($"Testing took: {duration.ToString("c")} ({duration.TotalSeconds}s)");
             WriteLine($"Number of failed tests: {TestEnvironment.FailCount.ToString()}");
 
@@ -119,7 +121,7 @@ namespace $rootnamespace$.Utilities
         /// </summary>
         public static void StartOfTest()
         {
-            WriteLine($"START [{TestEnvironment.TestName}] - {DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat)}");
+            WriteLine($"START [{TestEnvironment.TestName}] - {DateTime.Now.ToString(DateFormatSettings.ReadableDateTime)}");
             for (int i = 0; i < 3; i++)
             {
 
@@ -136,7 +138,7 @@ namespace $rootnamespace$.Utilities
             {
                 WriteLine(".");
             }
-            WriteLine($"END - Test {TestEnvironment.TestName} - {DateTime.Now.ToString(TestEnvironment.ReadableDateTimeFormat)}");
+            WriteLine($"END - Test {TestEnvironment.TestName} - {DateTime.Now.ToString(DateFormatSettings.ReadableDateTime)}");
             if (TestEnvironment.IsFailed)
                 WriteLine($"Error message: {TestContext.CurrentContext.Result.Message}\r\n");
         }

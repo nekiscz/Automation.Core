@@ -6,6 +6,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Text.RegularExpressions;
 
 namespace $rootnamespace$
 {
@@ -158,8 +159,11 @@ namespace $rootnamespace$
         /// <param name="url">URL to navigate to</param>
         public static void GoToUrl(string url)
         {
-            Driver.Url = $"{TestEnvironment.Url}{url}";
-        }
+            const string urlPrefixes = "(https?|file)://";
+
+            if (Regex.IsMatch(url, urlPrefixes))
+                Driver.Url = url;
+            else Driver.Url = $"{TestEnvironment.BaseUrl.Url}{url}";        }
 
         /// <summary>
         /// Navigates back one entry in history
@@ -167,7 +171,7 @@ namespace $rootnamespace$
         public static void GoBack()
         {
             Driver.Navigate().Back();
-        }
+		}
 
         /// <summary>
         /// Reloads current page

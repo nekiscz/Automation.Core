@@ -16,10 +16,10 @@
 
   <logSettings>
     <dateFormats>
-      <shortDate value="" />
+      <!--<shortDate value="" />
       <shortDateTime value="" />
       <readableDate value="" />
-      <readableDateTime value="" />
+      <readableDateTime value="" />-->
     </dateFormats>
 
     <reportDirectory path="\Report\" create="true" />

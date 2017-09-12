@@ -48,13 +48,17 @@ namespace nEkis.Automation.Core.Framework.Objects
             }
         }
         /// <summary>
-        /// Path to directory where file should be created
+        /// Relative path to directory where file should be created
         /// </summary>
         public string Path { get { return _file.Path; } }
         /// <summary>
         /// Name of log file 
         /// </summary>
         public string Name { get { return _file.Name; } }
+        /// <summary>
+        /// Relative path to directory and file name
+        /// </summary>
+        public string FullName { get { return this.Path + this.Name; } }
         /// <summary>
         /// If files should be created 
         /// </summary>

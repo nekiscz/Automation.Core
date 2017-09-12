@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using nEkis.Automation.Core.Settings;
+using OpenQA.Selenium;
 using System;
-using System.Configuration;
 using System.IO;
 
 namespace $rootnamespace$.Utilities
@@ -15,15 +15,15 @@ namespace $rootnamespace$.Utilities
         {
             get
             {
-                return string.Format(@ConfigurationManager.AppSettings["screenshotname"],
-                    TestEnvironment.TestName, DateTime.Now.ToString(TestEnvironment.DateTimeFormat));
+                return string.Format(LogSettings.ScreenShot.Name,
+                    TestEnvironment.TestName, DateTime.Now.ToString(DateFormatSettings.ShortDateTime));
             }
         }
 
         static Screenshot()
         {
-            ShotPath = TestEnvironment.TestPath + string.Format(@ConfigurationManager.AppSettings["screenshotdirectory"],
-                DateTime.Now.ToString(TestEnvironment.DateFormat));
+            ShotPath = TestEnvironment.TestPath + string.Format(LogSettings.ScreenShot.Path,
+                DateTime.Now.ToString(DateFormatSettings.ShortDate));
 
             if (!Directory.Exists(ShotPath))
                 Directory.CreateDirectory(ShotPath);
