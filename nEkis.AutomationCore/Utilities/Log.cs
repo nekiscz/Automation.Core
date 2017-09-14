@@ -1,6 +1,8 @@
 ﻿using nEkis.Automation.Core.Settings;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -12,27 +14,19 @@ namespace nEkis.Automation.Core.Utilities
     public class Log
     {
         private static bool Verbose { get; set; }
-        /// <summary>
-        /// Listner for console
-        /// </summary>
-        private static ConsoleTraceListener ctl { get; set; }
-        /// <summary>
-        /// Listner for txt file
-        /// </summary>
-        private static TextWriterTraceListener twtl { get; set; }
-        /// <summary>
-        /// Default listener for VS console
-        /// </summary>
-		private static DefaultTraceListener dtl { get; set; }
 
-        /// <summary>
-        /// Fullpath to log file
-        /// </summary>
+        private static ConsoleTraceListener ctl;
+        private static TextWriterTraceListener twtl;
+        private static DefaultTraceListener dtl;
+
         private static string LogPath { get; set; }
         private static string LogFullName { get; set; }
         private static string ReportPath { get; set; }
 
+        private static List<string> FailedTests { get; set; }
+
         private static DateTime startTime;
+
 
         static Log()
         {
@@ -42,15 +36,15 @@ namespace nEkis.Automation.Core.Utilities
 
             Trace.Listeners.Clear();
 
-            LogPath = TestEnvironment.TestPath + string.Format(LogSettings.Log.Path,
+            LogPath = CoreProperties.DllPath + string.Format(LogSettings.Log.Path,
                 DateTime.Now.ToString(DateFormatSettings.ShortDate));
-			ReportPath = TestEnvironment.TestPath + string.Format(LogSettings.Report.Path,
+			ReportPath = CoreProperties.DllPath + string.Format(LogSettings.Report.Path,
                 DateTime.Now.ToString(DateFormatSettings.ShortDate));
 
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);
 
-			LogFullName = TestEnvironment.TestPath + string.Format(LogSettings.Log.FullName,
+			LogFullName = CoreProperties.DllPath + string.Format(LogSettings.Log.FullName,
                 DateTime.Now.ToString(DateFormatSettings.ShortDate));
 
 			if (!Directory.Exists(ReportPath))
@@ -86,7 +80,7 @@ namespace nEkis.Automation.Core.Utilities
             WriteLine("----------------------------------------------------------------------------------------------------------");
             WriteLine("TESTING STARTED");
             WriteLine($"Local date and time: {startTime.ToString(DateFormatSettings.ReadableDateTime)}");
-            WriteLine($"Test directory: {TestEnvironment.TestPath}");
+            WriteLine($"Test directory: {CoreProperties.DllPath}");
             WriteLine("----------------------------------------------------------------------------------------------------------");
         }
 
@@ -101,13 +95,13 @@ namespace nEkis.Automation.Core.Utilities
             WriteLine("----------------------------------------------------------------------------------------------------------");
             WriteLine($"Local time: {endTime.ToString(DateFormatSettings.ReadableDateTime)}");
             WriteLine($"Testing took: {duration.ToString("c")} ({duration.TotalSeconds}s)");
-            WriteLine($"Number of failed tests: {TestEnvironment.FailCount.ToString()}");
+            WriteLine($"Number of failed tests: {TestContext.CurrentContext.Result.FailCount.ToString()}");
 
-            if (TestEnvironment.FailedTests.Count > 0)
+            if (TestContext.CurrentContext.Result.FailCount > 0)
             {
                 WriteLine("Failed tests:");
 
-                foreach (var test in TestEnvironment.FailedTests)
+                foreach (var test in FailedTests)
                 {
                     WriteLine($"\t{test}");
                 }
@@ -121,7 +115,7 @@ namespace nEkis.Automation.Core.Utilities
         /// </summary>
         public static void StartOfTest()
         {
-            WriteLine($"START [{TestEnvironment.TestName}] - {DateTime.Now.ToString(DateFormatSettings.ReadableDateTime)}");
+            WriteLine($"START [{TestContext.CurrentContext.Test.Name}] - {DateTime.Now.ToString(DateFormatSettings.ReadableDateTime)}");
             for (int i = 0; i < 3; i++)
             {
 
@@ -138,8 +132,8 @@ namespace nEkis.Automation.Core.Utilities
             {
                 WriteLine(".");
             }
-            WriteLine($"END - Test {TestEnvironment.TestName} - {DateTime.Now.ToString(DateFormatSettings.ReadableDateTime)}");
-            if (TestEnvironment.IsFailed)
+            WriteLine($"END - Test {TestContext.CurrentContext.Test.Name} - {DateTime.Now.ToString(DateFormatSettings.ReadableDateTime)}");
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
                 WriteLine($"Error message: {TestContext.CurrentContext.Result.Message}\r\n");
         }
 
@@ -172,25 +166,11 @@ namespace nEkis.Automation.Core.Utilities
         }
 
         /// <summary>
-        /// Writes line of text into added listners
+        /// Saves test name into FailedTests list
         /// </summary>
-        /// <param name="text">Unformated text</param>
-        /// <param name="arg">Argument to be formated with text</param>
-        [System.Obsolete("Use method WriteLine with $\"{method}\" connotation")]
-        public static void WriteLine(string text, object arg)
+        public static void SaveFailedTest()
         {
-            WriteLine(string.Format(text, arg));
-        }
-
-        /// <summary>
-        /// Writes line of text into added listners
-        /// </summary>
-        /// <param name="text">Unformated text</param>
-        /// <param name="arg">Array of arguments to be formated with text</param>
-        [System.Obsolete("Use method WriteLine with $\"{method}\" connotation")]
-        public static void WriteLine(string text, params object[] arg)
-        {
-            WriteLine(string.Format(text, arg));
+            FailedTests.Add(TestContext.CurrentContext.Test.Name);
         }
     }
 }

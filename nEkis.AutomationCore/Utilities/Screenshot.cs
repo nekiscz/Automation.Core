@@ -8,35 +8,34 @@ namespace nEkis.Automation.Core.Utilities
     /// <summary>
     /// Allows to take screenshots
     /// </summary>
-    public class Screenshot
+    public class ScreenShot
     {
-        private static string ShotPath { get; set; }
-        private static string ShotName
-        {
-            get
-            {
-                return string.Format(LogSettings.ScreenShot.Name,
-                    TestEnvironment.TestName, DateTime.Now.ToString(DateFormatSettings.ShortDateTime));
-            }
-        }
-
-        static Screenshot()
-        {
-            ShotPath = TestEnvironment.TestPath + string.Format(LogSettings.ScreenShot.Path,
+        private IWebDriver browser;
+        private string ShotPath => CoreProperties.DllPath + string.Format(LogSettings.ScreenShot.Path,
                 DateTime.Now.ToString(DateFormatSettings.ShortDate));
 
-            if (!Directory.Exists(ShotPath))
-                Directory.CreateDirectory(ShotPath);
+        /// <summary>
+        /// Takes screenshots of browser viewport
+        /// </summary>
+        /// <param name="browser">Browser to take screenshots from</param>
+        public ScreenShot(IWebDriver browser)
+        {
+            this.browser = browser;
+            if (!Directory.Exists(this.ShotPath))
+                Directory.CreateDirectory(this.ShotPath);
         }
 
         /// <summary>
         /// Takes screenshot and saves it in desired location
         /// </summary>
+        /// <param name="testName">Name of test inserted into screenshot name</param>
         /// <param name="format">Format of image file</param>
-        public static void TakeScreenshot(ScreenshotImageFormat format = ScreenshotImageFormat.Png)
+        public void TakeScreenshot(string testName, ScreenshotImageFormat format = ScreenshotImageFormat.Png)
         {
-            OpenQA.Selenium.Screenshot shot = ((ITakesScreenshot)Browser.Driver).GetScreenshot();
-            shot.SaveAsFile(ShotPath + ShotName, format);
+            var shotName = string.Format(LogSettings.ScreenShot.Name, testName, DateTime.Now.ToString(DateFormatSettings.ShortDateTime));
+
+            OpenQA.Selenium.Screenshot shot = ((ITakesScreenshot)browser).GetScreenshot();
+            shot.SaveAsFile(this.ShotPath + shotName, format);
         }
     }
 }

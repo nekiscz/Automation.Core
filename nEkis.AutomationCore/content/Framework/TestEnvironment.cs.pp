@@ -71,14 +71,5 @@ namespace $rootnamespace$
 
             return failed;
         }
-
-        /// <summary>
-        /// Saves test name into FailedTests list
-        /// </summary>
-        public static void SaveFailedTest()
-        {
-            FailedTests.Add(TestContext.CurrentContext.Test.Name);
-        }
-
     }
 }

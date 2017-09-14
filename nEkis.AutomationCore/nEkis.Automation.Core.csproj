@@ -64,6 +64,7 @@
     <None Include="content\PageObject\_BasePage.cs.pp" />
     <None Include="content\Test\Testing.Tests.cs.pp" />
     <None Include="content\Test\_BaseTest.cs.pp" />
+    <Compile Include="CoreProperties.cs" />
     <Compile Include="CreateBrowser.cs" />
     <None Include="content\Framework\Browser.cs.pp" />
     <Compile Include="Utilities\HelperClasses\EnumHelper.cs" />

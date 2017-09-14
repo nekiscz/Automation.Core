@@ -5,8 +5,9 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
-using nEkis.Automation.Core.Framework.Objects;
 using nEkis.Automation.Core.Utilities;
+using nEkis.Automation.Core.Framework.Objects;
+using NUnit.Framework;
 
 namespace nEkis.Automation.Core
 {
@@ -18,11 +19,12 @@ namespace nEkis.Automation.Core
         #region Custom prop
 
         private IWebDriver Driver { get; set; }
-
         private EventFiringWebDriver Edr { get; set; }
 
+        /// <summary>
+        /// Basic information about test environment URL
+        /// </summary>
         public BaseUrl BaseUrl { get; private set; }
-
         /// <summary>
         /// Allows actions in driver
         /// </summary>
@@ -36,6 +38,10 @@ namespace nEkis.Automation.Core
         /// </summary>
         public Random Random { get; set; }
         /// <summary>
+        /// Anaibles you to take screenshots
+        /// </summary>
+        public ScreenShot Screenshot { get; set; }
+        /// <summary>
         /// JavaScript Executor 
         /// </summary>
         public IJavaScriptExecutor JsExecutor { get; set; }
@@ -44,14 +50,25 @@ namespace nEkis.Automation.Core
 
         #region IWebDriver props
 
+        /// <summary>
+        /// Gets or sets URL browser is currently displaying
+        /// </summary>
         public string Url { get { return this.Driver.Url; } set { this.Driver.Url = value; } }
-
+        /// <summary>
+        /// Gets title of current browser title
+        /// </summary>
         public string Title { get { return this.Driver.Title; } }
-
+        /// <summary>
+        /// Gets source of the page last loaded in browser
+        /// </summary>
         public string PageSource { get { return this.Driver.PageSource; } }
-
+        /// <summary>
+        /// Gets handle for current browser window 
+        /// </summary>
         public string CurrentWindowHandle { get { return this.Driver.CurrentWindowHandle; } }
-
+        /// <summary>
+        /// Gets handles of all browser windows 
+        /// </summary>
         public ReadOnlyCollection<string> WindowHandles { get { return this.Driver.WindowHandles; } }
 
         #endregion
@@ -66,6 +83,12 @@ namespace nEkis.Automation.Core
             Init(defaultBrowser, waitsec);
         }
 
+        /// <summary>
+        /// Creates Driver (Chrome by default) and Event Firing Driver, creates rules for exceptions and events, wait set to 20s by default
+        /// </summary>
+        /// <param name="baseUrl">Helps you setup your environvment</param>
+        /// <param name="waitsec">Timeout setting for WebDriverWait</param>
+        /// <param name="defaultBrowser">Sets default browser that will be run if none is given</param>
         public Browser(BaseUrl baseUrl, string defaultBrowser = "ch", int waitsec = 20)
         {
             this.BaseUrl = baseUrl;
@@ -74,7 +97,8 @@ namespace nEkis.Automation.Core
 
         private void Init(string defaultBrowser, int waitsec)
         {
-            this.Driver = CreateBrowser.Create(defaultBrowser);
+            var browser = TestContext.Parameters.Get("Browser", defaultBrowser);
+            this.Driver = CreateBrowser.Create(browser);
 
             Log.WriteLine($"Driver created ({this.Driver.GetType().Name})");
             this.Edr = new EventFiringWebDriver(this.Driver);
@@ -145,7 +169,7 @@ namespace nEkis.Automation.Core
         {
             const string urlPrefixes = "(https?|file)://";
 
-            if (Regex.IsMatch(url, urlPrefixes))
+            if (Regex.IsMatch(url, urlPrefixes) || this.BaseUrl == null)
                 this.Driver.Url = url;
             else this.Driver.Url = $"{BaseUrl.Url}{url}";
         }
@@ -210,7 +234,7 @@ namespace nEkis.Automation.Core
         {
             try
             {
-                string text = e.Element.GetText();
+                string text = e.Element.Text;
                 if (string.IsNullOrEmpty(text))
                     Log.WriteLineIfVerbose($"// Cleared elements value or no text put in: {e.Element.GetAttribute("outerHTML")}");
                 else
@@ -232,8 +256,8 @@ namespace nEkis.Automation.Core
         {
             string elementText = string.Empty;
 
-            if (!string.IsNullOrEmpty(e.Element.GetText()))
-                elementText = e.Element.GetText();
+            if (!string.IsNullOrEmpty(e.Element.Text))
+                elementText = e.Element.Text;
             else if (!string.IsNullOrEmpty(e.Element.GetAttribute("value")))
                 elementText = e.Element.GetAttribute("value");
 
@@ -307,32 +331,57 @@ namespace nEkis.Automation.Core
             Log.CloseTracers();
         }
 
-
+        /// <summary>
+        /// Instructs the driver to change its settings
+        /// </summary>
+        /// <returns></returns>
         public IOptions Manage()
         {
             return this.Driver.Manage();
         }
 
+        /// <summary>
+        /// Instructs the driver to navigate the browser to different location
+        /// </summary>
+        /// <returns></returns>
         public INavigation Navigate()
         {
             return this.Driver.Navigate();
         }
 
+        /// <summary>
+        /// Instructs the driver to send future commands to different frame or window
+        /// </summary>
+        /// <returns></returns>
         public ITargetLocator SwitchTo()
         {
             return this.Driver.SwitchTo();
         }
 
+        /// <summary>
+        /// Finds the first OpenQA.Selenium.IWebElement using the given method
+        /// </summary>
+        /// <param name="by">The locating mechanism to use</param>
+        /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
+        /// <exception cref="OpenQA.Selenium.NoSuchElementException">If no element matches the criteria</exception>
         public IWebElement FindElement(By by)
         {
             return this.Driver.FindElement(by);
         }
 
+        /// <summary>
+        /// Finds all OpenQA.Selenium.IWebElement within the current context using the given mechanism
+        /// </summary>
+        /// <param name="by">The locating mechanism to use</param>
+        /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
         public ReadOnlyCollection<IWebElement> FindElements(By by)
         {
             return this.Driver.FindElements(by);
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources
+        /// </summary>
         public void Dispose()
         {
             this.Driver.Dispose();

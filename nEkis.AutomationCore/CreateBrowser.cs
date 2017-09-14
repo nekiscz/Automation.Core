@@ -8,14 +8,8 @@ using nEkis.Automation.Core.Utilities;
 
 namespace nEkis.Automation.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CreateBrowser 
+    internal class CreateBrowser 
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public enum SelectedBrowser
         {
             /// <summary>
