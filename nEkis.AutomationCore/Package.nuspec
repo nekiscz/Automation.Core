@@ -16,7 +16,7 @@
     <tags>Automation Selenium NUnit nEkis Core</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.configuration" />
-    </frameworkAssemblies>nuge
+    </frameworkAssemblies>
     <dependencies>
       <dependency id="NUnit" version="[3.6.1,)" />
       <dependency id="Selenium.Firefox.WebDriver" version="[0,)" />

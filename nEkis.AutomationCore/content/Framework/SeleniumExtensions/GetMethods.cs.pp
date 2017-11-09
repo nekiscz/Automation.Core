@@ -1,5 +1,6 @@
 ﻿using $rootnamespace$.Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using System;
 using System.Collections.Generic;
 
@@ -253,9 +254,14 @@ namespace $rootnamespace$
             }
         }
 
+        /// <summary>
+        /// Unwrappes transparent proxy to get usable element
+        /// </summary>
+        /// <param name="proxy">Transparent proxy holding the element</param>
+        /// <returns>Unwrapped element</returns>
 		public static IWebElement UnwrapElement(this IWebElement proxy)
 		{
-			return ((IWrapsElement)element).WrappedElement;
+			return ((IWrapsElement)proxy).WrappedElement;
 		}
 
     }
