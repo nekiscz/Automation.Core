@@ -252,5 +252,11 @@ namespace $rootnamespace$
                 Log.PrintLine(line);
             }
         }
+
+		public static IWebElement UnwrapElement(this IWebElement proxy)
+		{
+			return ((IWrapsElement)element).WrappedElement;
+		}
+
     }
 }
